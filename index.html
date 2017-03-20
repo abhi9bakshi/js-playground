@@ -1,1 +1,124 @@
-JS playground
+<!doctype html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JS Playground</title>
+
+<!-- Custom Font -->
+ <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> 
+ <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet"> 
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+
+<!-- Modernizr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" integrity="sha256-0rguYS0qgS6L4qVzANq4kjxPLtvnp5nn2nB5G1lWRv4=" crossorigin="anonymous"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
+
+<!-- Codemirror -->
+<script src="scripts/codemirror.js" ></script>
+<link rel="stylesheet" href="styles/codemirror.css">
+
+<!-- Codemirror Modes -->
+<script src="mode/javascript.js"></script>
+<script src="mode/css.js"></script>
+<script src="mode/vbscript.js"></script>
+<script src="mode/xml.js"></script>
+<script src="mode/htmlmixed.js"></script>
+
+<!-- Codemirror Themes -->
+<link rel="stylesheet" href="theme/eclipse.css">
+<link rel="stylesheet" href="theme/material.css">
+<link rel="stylesheet" href="theme/monokai.css">
+
+
+<!-- Custom Styles -->
+<link rel="stylesheet" href="styles/styles.css">
+
+</head>
+
+<body>
+
+
+<div id="logo">
+	<img src="media/images/js_logo.jpg" alt="js_logo">
+</div>
+
+<header>
+	<h2>JS Playground</h2>
+
+	<ul>
+		<li id="run_button">
+		    <i class="fa fa-play" aria-hidden="true"></i>
+		</li>
+		<li id="theme_button">
+		    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+		</li>
+		<li id="view_button">
+		    <i class="fa fa-th-large" aria-hidden="true"></i>
+		</li>
+	</ul>
+</header>
+
+<div id="bg-border"></div>
+
+
+<div id="tabs">
+	<ul>
+		<li>HTML</li>
+		<li class="active-li">JS</li>
+		<li>CSS</li>
+	</ul>
+</div>
+
+<section id="playground">
+	<textarea id="html_box">
+<p>Hello World</p>
+	</textarea> 
+
+	<textarea id="js_box">
+console.log("Hello World");
+	</textarea>
+
+	<textarea id="css_box">
+p
+{	
+	color: pink;
+	border: 3px dashed red;	
+}
+	</textarea>
+
+   	<iframe id="result_box"></iframe>
+</section>
+
+<footer>
+	<h2>Abhinav Bakshi (abhi9bakshi@gmail.com)</h2>
+	<ul>
+		<li>
+			<a href="https://www.linkedin.com/in/abhi9bakshi" class="social-links">
+			    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+			</a>
+		</li>
+		<li>
+			<a href="https://www.facebook.com/abhi9bakshi" class="social-links">
+			    <i class="fa fa-facebook-square" aria-hidden="true"></i>
+			</a>
+		</li>
+		<li>
+			<a href="https://twitter.com/abhi9bakshi" class="social-links">
+			    <i class="fa fa-twitter-square" aria-hidden="true"></i>
+			</a>
+		</li>
+	</ul>
+</footer>
+
+<!-- Custom Script -->
+<script src="scripts/scripts.js"></script>
+</body>
+
+</html>

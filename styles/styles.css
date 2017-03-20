@@ -1,0 +1,313 @@
+/******************* CSS Reset *******************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/***************** Global Styles *****************/
+header, footer, #tabs{
+    font-family: 'Raleway', sans-serif;
+}
+
+
+/***************** Header Styles *****************/
+header{
+	z-index: 1;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	line-height: 2.5rem;
+	background-color: #111;
+/*	-webkit-box-shadow: 0px 0px 8px 2px #000000;
+    -moz-box-shadow: 0px 0px 8px 2px #000000;
+    box-shadow: 0px 0px 8px 2px #000000;*/
+}
+
+header h2{
+	position: absolute;
+	left: calc(50% - 5rem);
+	width: 10rem;
+	text-align: center;
+	font-size: 1rem;
+	color: #eee;
+}
+
+header h2:hover{
+	color: #fff;
+	cursor: pointer;
+}
+
+
+#logo{
+	z-index: 2;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#logo img{
+	width: 2.5rem;
+	height: 2.5rem;
+}
+
+header ul{
+	text-align: right;
+	background-color: #111;
+
+}
+
+header ul li{
+	display: inline;
+}
+
+header ul li i{
+	color: #eee;
+	text-decoration: none;
+	font-size: 1.5rem;
+	padding: 0.7rem 1rem;
+	margin-left: -0.3rem;
+
+/*	-webkit-transition: background-color 500ms ease;
+	-moz-transition: background-color 500ms ease;
+	-o-transition: background-color 500ms ease;
+	transition: background-color 500ms ease;*/
+}
+
+header ul li i:hover{
+	background-color: #333;
+	cursor: pointer;
+}
+
+.fa-play{
+	color: #1fd131;
+}
+
+/*************** Playground Styles ***************/
+#playground{
+	position: absolute;
+	top: 2.5rem;
+	left: 0rem;
+	width: 100%;
+	height: calc(100% - 5.5rem);
+}
+
+#bg-border{
+	position: absolute;
+	z-index: -1;
+	top: 2.5rem;
+	left: 0;
+	width: 100%;
+	height: calc(100% - 5.5rem);
+	background-color: #555;
+}
+
+/* View: Grid */
+.view-grid{
+	font-size: 1rem;
+	font-family: 'Inconsolata', monospace;
+}
+
+.grid-html{
+	position: absolute;
+	top: 0;
+	width: calc(50% - 1px);
+	height: calc(50% - 1px);
+	/*border-right: 1px solid #555;
+	border-bottom: 1px solid #555;*/
+}
+
+.grid-js{
+	position: absolute;
+	top: 50%;
+	width: calc(50% - 1px);
+	height: 50%;
+	/*border-right: 1px solid #555;*/
+}
+
+.grid-css{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 50%;
+	height: 50%;
+}
+
+.grid-result-box{
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	height: calc(50% - 1px);
+	background-color: white;
+	/*border-bottom: 1px solid #555;*/
+}
+
+/* View: Two Pane */
+.view-two-pane{
+	font-size: 1rem;
+	font-family: 'Inconsolata', monospace;
+}
+
+.two-pane-html{
+	position: absolute;
+	top: 2.5rem;
+	left: 0;
+	width: 50%;
+	height: calc(100% - 2.5rem);
+}
+
+.two-pane-js{
+	position: absolute;
+	top: 2.5rem;
+	left: 0;
+	width: 50%;
+	height: calc(100% - 2.5rem);
+}
+
+.two-pane-css{
+	position: absolute;
+	top: 2.5rem;
+	left: 0;
+	width: 50%;
+	height: calc(100% - 2.5rem);
+}
+
+.two-pane-result-box{
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	height: 100%;
+	background-color: white;
+}
+
+/* Tabs */
+#tabs{
+	position: absolute;
+	top: 0rem;
+	left: 0;
+	width: 50%;
+	height: 2.5rem;
+	color: white;
+	background-color: #344349;
+}
+
+#tabs li{
+	margin: 0.05rem -0.1rem 0 ;
+	display: inline-block;
+	text-align: center;
+	width: 33.3%;
+	line-height: 2.5rem;
+	background-color: #344349;
+}
+
+.active-li{
+/*	background: linear-gradient(to bottom, #455460, #263238)!important;*/
+	background-color: #263238!important;
+	border-top: solid 0.3rem #348369!important;
+	line-height: 2.2rem!important;
+}
+
+#separator{
+	position: absolute;
+	top: 2.3rem;
+	width: 100%;
+	height: 2.3rem;
+	color: red;
+}
+
+
+/*textarea{
+	resize: none;
+	width: 400px;
+	height: 400px;
+	border: 1px solid #666;
+	font-size: 14px;
+	font-family: Consolas,Monaco,"Lucida Console","Liberation Mono","DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New";
+}*/
+
+/***************** Footer Styles *****************/
+footer{
+	position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3rem;
+    width: 100%;
+}
+
+footer h2{
+	position: absolute;
+	margin-left: 0.8rem;
+	text-align: left;
+	font-size: 0.8rem;
+	line-height: 3rem;
+	color: #eee;
+	background-color: rgba(0,0,0,0);
+}
+
+footer ul{
+	text-align: right;
+	background-color: #111;
+
+}
+
+footer ul li{
+	display: inline;
+}
+
+footer ul li a{
+	color: #eee;
+	text-decoration: none;
+	font-size: 1.5rem;
+	line-height: 3rem;
+	margin: 0 0.8rem;
+
+	-webkit-transition: font-size 1s ease, line-height 1s ease;
+	-moz-transition: font-size 1s ease, line-height 1s ease;
+	-o-transition: font-size 1s ease, line-height 1s ease;
+	transition: font-size 1s ease, line-height 1s ease;
+}
+
+footer ul li a:hover{
+	font-size: 1.8rem;
+	line-height: 2.7rem;
+}
