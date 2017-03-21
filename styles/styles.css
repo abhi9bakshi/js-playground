@@ -44,7 +44,7 @@ table {
 
 
 /***************** Global Styles *****************/
-header, footer, #tabs{
+header, footer, #tabs, #themes{
     font-family: 'Raleway', sans-serif;
 }
 
@@ -66,6 +66,7 @@ header h2{
 	position: absolute;
 	left: calc(50% - 5rem);
 	width: 10rem;
+	overflow: none;
 	text-align: center;
 	font-size: 1rem;
 	color: #eee;
@@ -121,6 +122,25 @@ header ul li i:hover{
 	color: #1fd131;
 }
 
+#themes{
+	display: none;
+	position: absolute;
+	top: 2.5rem;
+	right: 0rem;
+	z-index: 2;
+	font-size: 1rem;
+	background-color: #111111;
+	color: white;
+}
+
+#themes li{
+	padding: 1rem;
+}
+
+#themes li:hover{
+	cursor: pointer;
+	background-color: #333333;
+}
 /*************** Playground Styles ***************/
 #playground{
 	position: absolute;
@@ -133,11 +153,15 @@ header ul li i:hover{
 #bg-border{
 	position: absolute;
 	z-index: -1;
-	top: 2.5rem;
+	top: 0;
 	left: 0;
 	width: 100%;
-	height: calc(100% - 5.5rem);
+	height: 100%;
 	background-color: #555;
+}
+
+.CodeMirror{
+	z-index: 1;
 }
 
 /* View: Grid */
@@ -151,8 +175,19 @@ header ul li i:hover{
 	top: 0;
 	width: calc(50% - 1px);
 	height: calc(50% - 1px);
-	/*border-right: 1px solid #555;
-	border-bottom: 1px solid #555;*/
+}
+
+.grid-html:after{
+	content: "HTML";
+	color: white;
+	z-index: 2;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-left: 1px solid #555;
+	border-bottom: 1px solid #555;
+	padding: 0.3rem;
+	color: #666;
 }
 
 .grid-js{
@@ -160,7 +195,18 @@ header ul li i:hover{
 	top: 50%;
 	width: calc(50% - 1px);
 	height: 50%;
-	/*border-right: 1px solid #555;*/
+}
+
+.grid-js:after{
+	content: "JS";
+	z-index: 2;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-left: 1px solid #555;
+	border-bottom: 1px solid #555;
+	padding: 0.3rem;
+	color: #666;
 }
 
 .grid-css{
@@ -171,14 +217,26 @@ header ul li i:hover{
 	height: 50%;
 }
 
+.grid-css:after{
+	content: "CSS";
+	z-index: 2;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-left: 1px solid #555;
+	border-bottom: 1px solid #555;
+	padding: 0.3rem;
+	color: #666;
+}
+
 .grid-result-box{
 	position: absolute;
 	top: 0;
 	left: 50%;
-	width: 50%;
-	height: calc(50% - 1px);
+	width: calc(50% - 0.8rem);
+	height: calc(50% - 0.8rem - 1px);
 	background-color: white;
-	/*border-bottom: 1px solid #555;*/
+	padding: 0.4rem;
 }
 
 /* View: Two Pane */
@@ -215,9 +273,11 @@ header ul li i:hover{
 	position: absolute;
 	top: 0;
 	left: 50%;
-	width: 50%;
-	height: 100%;
+	width: calc(50% - 0.8rem - 1px);
+	height: calc(100% - 0.8rem);
+	border-left: 1px solid #555;
 	background-color: white;
+	padding: 0.4rem;
 }
 
 /* Tabs */
@@ -227,8 +287,6 @@ header ul li i:hover{
 	left: 0;
 	width: 50%;
 	height: 2.5rem;
-	color: white;
-	background-color: #344349;
 }
 
 #tabs li{
@@ -237,36 +295,81 @@ header ul li i:hover{
 	text-align: center;
 	width: 33.3%;
 	line-height: 2.5rem;
+}
+
+/* Eclipse tabs*/
+#tabs.eclipse{
+	color: black;
+	background-color: #d1e0ef;
+}
+
+#tabs.eclipse li{
+	background-color: #d1e0ef;
+}
+
+#tabs.eclipse li:hover{
+	cursor: pointer;
+	background-color: #d6e5f4;
+}
+
+#tabs.eclipse .active-li{
+	background-color: #fff!important;
+	border-top: solid 1px #555;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	line-height: 2.5rem;
+}
+
+/* Material Tabs */
+#tabs.material{
+	color: white;
 	background-color: #344349;
 }
 
-.active-li{
-/*	background: linear-gradient(to bottom, #455460, #263238)!important;*/
+#tabs.material li{
+	background-color: #344349;
+}
+
+#tabs.material li:hover{
+	cursor: pointer;
+	background-color: #374652;
+}
+
+#tabs.material .active-li{
 	background-color: #263238!important;
-	border-top: solid 0.3rem #348369!important;
-	line-height: 2.2rem!important;
+	border-top: solid 0.3rem #348369;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	line-height: 2.2rem;
+}
+/* Monokai Tabs*/
+#tabs.monokai{
+	color: #9f9b96;
+	background-color: #464643;
 }
 
-#separator{
-	position: absolute;
-	top: 2.3rem;
-	width: 100%;
-	height: 2.3rem;
-	color: red;
+#tabs.monokai li{
+	background-color: #464643;
 }
 
+#tabs.monokai li:hover{
+	cursor: pointer;
+	background-color: #464643;
+}
 
-/*textarea{
-	resize: none;
-	width: 400px;
-	height: 400px;
-	border: 1px solid #666;
-	font-size: 14px;
-	font-family: Consolas,Monaco,"Lucida Console","Liberation Mono","DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New";
-}*/
+#tabs.monokai .active-li{
+	background-color: 	#272822!important;
+	color: white;
+	border-top: solid 1px #555;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	line-height: 2.5rem;
+	transform: perspective(200px) rotateX(30deg);
+}
 
 /***************** Footer Styles *****************/
 footer{
+	z-index: 2;
 	position: absolute;
     left: 0;
     bottom: 0;
@@ -284,17 +387,44 @@ footer h2{
 	background-color: rgba(0,0,0,0);
 }
 
-footer ul{
-	text-align: right;
-	background-color: #111;
 
+footer ul#load{
+	position: absolute;
+	top: 0;
+	left: calc(50% - 4rem);	
+	width: 8rem;
+	text-align: center;
+	background-color: #111;
 }
 
-footer ul li{
+footer ul#load li{
+	display: inline;
+	margin: 0 -0.1rem;
+}
+
+footer ul#load li i{
+	color: #eee;
+	text-decoration: none;
+	line-height: 3rem;
+	font-size: 1.4rem;
+	padding: 0 1.2rem;
+}
+
+footer ul#load li i:hover{
+	cursor: pointer;
+	background-color: #222;
+}
+
+footer ul#links{
+	text-align: right;
+	background-color: #111;
+}
+
+footer ul#links li{
 	display: inline;
 }
 
-footer ul li a{
+footer ul#links li a{
 	color: #eee;
 	text-decoration: none;
 	font-size: 1.5rem;
@@ -307,7 +437,72 @@ footer ul li a{
 	transition: font-size 1s ease, line-height 1s ease;
 }
 
-footer ul li a:hover{
+footer ul#links li a:hover{
 	font-size: 1.8rem;
 	line-height: 2.7rem;
+}
+
+#savefile #save-button{
+    font-family: 'Raleway', sans-serif;
+	position: absolute;
+	width: 3rem;
+	height: 3rem;
+	right: 0;
+	color: #eee;
+	background-color: #00680c;
+}
+
+#savefile #save-button:hover{
+	cursor: pointer;
+	background-color: #00820f;
+}
+
+#savefile p{
+	font-size: 0.9rem;
+	line-height: 3rem;
+	text-align: center;
+}
+
+#savefile input{
+	background-color: #333;
+	color: #eee;
+	border: none;
+
+	-webkit-transition: background-color 5s ease;
+	-moz-transition: background-color 5s ease;
+	-o-transition: background-color 5s ease;
+	transition: background-color 5s ease;
+}
+
+.input-alert{
+	background-color: #633!important;
+}
+
+#savefile{
+	z-index: 1;
+	position: absolute;
+	left: 0;
+	bottom: 0rem;
+	width: 100%;
+	height: 3rem;
+	background-color: #222;
+
+	-webkit-transition: bottom 1s ease;
+	-moz-transition: bottom 1s ease;
+	-o-transition: bottom 1s ease;
+	transition: bottom 1s ease;
+}
+
+.show-save-dialog{
+	bottom: 3rem!important;
+}
+
+
+#savefile #file-name{
+	position: absolute;
+	top: 0.7rem;
+	width: calc(100% - 5rem);
+	line-height: 1.6rem;
+	margin: 0 1rem;
+	color: white;
 }

@@ -20,6 +20,10 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
 
+<!-- FileSaver -->
+<script src="scripts/blob.js" ></script>
+<script src="scripts/filesaver.js" ></script>
+
 <!-- Codemirror -->
 <script src="scripts/codemirror.js" ></script>
 <link rel="stylesheet" href="styles/codemirror.css">
@@ -36,7 +40,6 @@
 <link rel="stylesheet" href="theme/material.css">
 <link rel="stylesheet" href="theme/monokai.css">
 
-
 <!-- Custom Styles -->
 <link rel="stylesheet" href="styles/styles.css">
 
@@ -52,31 +55,45 @@
 <header>
 	<h2>JS Playground</h2>
 
-	<ul>
+	<ul id="nav-right">
 		<li id="run_button">
-		    <i class="fa fa-play" aria-hidden="true"></i>
+		    <i class="fa fa-play" title="Run" aria-hidden="true"></i>
 		</li>
 		<li id="theme_button">
-		    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+		    <i class="fa fa-paint-brush" title="Theme" aria-hidden="true"></i>
 		</li>
 		<li id="view_button">
-		    <i class="fa fa-th-large" aria-hidden="true"></i>
+		    <i class="fa fa-pause" title="View" aria-hidden="true"></i>
 		</li>
 	</ul>
 </header>
 
-<div id="bg-border"></div>
+<ul id="themes">
+	<li id="eclipse">
+		Eclipse
+	</li>
+	<li id="material">
+		Material
+	</li>
+	<li id="monokai">
+		Monokai
+	</li>
+</ul>
 
+
+
+<section id="playground">
+
+<div id="bg-border"></div>
 
 <div id="tabs">
 	<ul>
-		<li>HTML</li>
-		<li class="active-li">JS</li>
+		<li class="active-li">HTML</li>
+		<li>JS</li>
 		<li>CSS</li>
 	</ul>
 </div>
 
-<section id="playground">
 	<textarea id="html_box">
 <p>Hello World</p>
 	</textarea> 
@@ -98,7 +115,20 @@ p
 
 <footer>
 	<h2>Abhinav Bakshi (abhi9bakshi@gmail.com)</h2>
-	<ul>
+	
+	<ul id="load">
+		<li title="Upload">
+			<label for="file-upload" class="custom-file-upload">
+    	    	<i class="fa fa-upload" aria-hidden="true"></i>
+    		</label>
+		    <input style="display: none" type="file" id="file-upload" />
+		</li>
+		<li title="Download" id="file-download">
+		    <i class="fa fa-download" aria-hidden="true"></i>
+		</li>
+	</ul>
+
+	<ul id="links">
 		<li>
 			<a href="https://www.linkedin.com/in/abhi9bakshi" class="social-links">
 			    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
@@ -116,6 +146,13 @@ p
 		</li>
 	</ul>
 </footer>
+
+<div id="savefile">
+		<input type="text" id="file-name" placeholder="file name" />
+		<div id="save-button">
+			<p>save</p>	
+		</div>
+</div>
 
 <!-- Custom Script -->
 <script src="scripts/scripts.js"></script>
