@@ -61,10 +61,12 @@ $(document).ready(function(){
 
 
 	/* Load file asynchronously on request */
+	setTimeout(function(){ 
 	if(window.location.href.split("#")[1]){
 		//alert("true");
 		loadFileAJAX(window.location.href.split("#")[1], htmleditor, jseditor, csseditor);
 	}
+	}, 5000);
 
 	/* Setup the Environment */
 	changeView(htmleditor, jseditor, csseditor);
