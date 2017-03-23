@@ -44,7 +44,7 @@ table {
 
 
 /***************** Global Styles *****************/
-header, footer, #tabs, #themes{
+header, footer, #tabs, #themes, #external_resource{
     font-family: 'Raleway', sans-serif;
 }
 
@@ -66,7 +66,7 @@ header h2{
 	position: absolute;
 	left: calc(50% - 5rem);
 	width: 10rem;
-	overflow: none;
+	overflow-y: none;
 	text-align: center;
 	font-size: 1rem;
 	color: #eee;
@@ -114,7 +114,7 @@ header ul li i{
 }
 
 header ul li i:hover{
-	background-color: #333;
+	background-color: #222;
 	cursor: pointer;
 }
 
@@ -129,8 +129,8 @@ header ul li i:hover{
 	right: 0rem;
 	z-index: 2;
 	font-size: 1rem;
-	background-color: #111111;
-	color: white;
+	background-color: #222;
+	color: #eee;
 }
 
 #themes li{
@@ -141,6 +141,130 @@ header ul li i:hover{
 	cursor: pointer;
 	background-color: #333333;
 }
+
+#external_resource{
+	display: none;
+	position: absolute;
+	top: 2.5rem;
+	right: 0rem;
+	z-index: 2;
+	background-color: #111;
+	color: #eee;
+	width: 15rem;
+	height: 2.5rem;
+}
+
+#external_resource p{
+	width: 15rem;
+	line-height: 2.5rem;
+	text-align: center;
+	background-color: #222;
+}
+
+#external_resource_input input{
+	background-color: #222;
+	width: 11.5rem;
+	height: 2.5rem;
+	border: none;
+	color: #eee;
+	padding: 0 0.5rem;
+	margin-right: -0.255rem;
+	vertical-align: middle;
+	-webkit-transition: background-color 0.5s ease;
+	-moz-transition: background-color 0.5s ease;
+	-o-transition: background-color 0.5s ease;
+	transition: background-color 0.5s ease;
+}
+
+#external_resource_input img{
+	width: 1.4rem;
+	height: 1.4rem;
+	background-color: #00680c;
+	padding: 0.55rem;
+	vertical-align: middle;
+}
+
+#external_resource_input img:hover{
+	cursor: pointer;
+	background-color: #00820f;
+}
+
+#external_resource_input input:focus, .external_resource_list input:focus{
+	background-color: #333;
+}
+
+.external_resource_list{
+	z-index: 3;
+	-webkit-transition: transform 0s ease;
+	-moz-transition: transform 0s ease;
+	-o-transition: transform 0s ease;
+	transition: transform 0s ease;
+	-ms-transform: translate(0, -2.5rem);
+    -webkit-transform: translate(0, -2.5rem);
+    transform: translate(0, -2.5rem);
+}
+
+.external_resource_list_translate{
+	-webkit-transition: transform 0.5s ease;
+	-moz-transition: transform 0.5s ease;
+	-o-transition: transform 0.5s ease;
+	transition: transform 0.5s ease;
+
+	-ms-transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.external_resource_list input{
+	background-color: #222;
+	width: 11.5rem;
+	height: 2.5rem;
+	border: none;
+	color: #eee;
+	padding: 0 0.5rem;
+	vertical-align: middle;
+}
+
+.external_resource_list div{
+	display: inline-block;
+	background-color: #00680c;
+	width: 1.4rem;
+	height: 1.4rem;
+	padding: 0.55rem;
+	vertical-align: middle;
+	-webkit-transition: background-color 0.5s ease;
+	-moz-transition: background-color 0.5s ease;
+	-o-transition: background-color 0.5s ease;
+	transition: background-color 0.5s ease;
+}
+
+.external_resource_list_div_added:hover{
+	cursor: pointer;
+	background-color: #ca0000!important;
+}
+
+.external_resource_list img{
+	width: 1.4rem;
+	height: 1.4rem;
+
+	-webkit-transition: transform 0.5s ease;
+	-moz-transition: transform 0.5s ease;
+	-o-transition: transform 0.5s ease;
+	transition: transform 0.5s ease;
+}
+
+.external_resource_list_div_added{
+	background-color: #ba0000!important;
+}
+
+.external_resource_list_img_added{
+	-ms-transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+
+
 /*************** Playground Styles ***************/
 #playground{
 	display: none;
@@ -469,10 +593,10 @@ footer ul#links li a:hover{
 	color: #eee;
 	border: none;
 
-	-webkit-transition: background-color 5s ease;
-	-moz-transition: background-color 5s ease;
-	-o-transition: background-color 5s ease;
-	transition: background-color 5s ease;
+	-webkit-transition: background-color 1s ease;
+	-moz-transition: background-color 1s ease;
+	-o-transition: background-color 1s ease;
+	transition: background-color 1s ease;
 }
 
 .input-alert{

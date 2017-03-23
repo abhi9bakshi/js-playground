@@ -20,8 +20,11 @@ $(document).ready(function(){
 	{
 		// value: htmlDecode(htmlbox.innerHTML),
 		lineNumbers: true,
-		mode:  mixedMode,
-		theme: "material"
+		mode: 'text/html',
+		extraKeys: {"Ctrl-Space": "autocomplete"}, 
+		theme: "material",
+        autoCloseTags: true,
+        matchTags: true
 	});
 
 
@@ -34,7 +37,10 @@ $(document).ready(function(){
 		// value: jsbox.innerHTML,
 		lineNumbers: true,
 		mode:  "javascript",
-		theme: "material"
+		theme: "material",
+		extraKeys: {"Ctrl-Space": "autocomplete"},
+		autoCloseBrackets: true,
+		matchBrackets: true
 	});
 
 
@@ -47,52 +53,49 @@ $(document).ready(function(){
 		// value: cssbox.innerHTML,
 		lineNumbers: true,
 		mode:  "css",
-		theme: "material"
+		extraKeys: {"Ctrl-Space": "autocomplete"}, 
+		theme: "material",
+		autoCloseBrackets: true,
+		matchBrackets: true
 	});
 
 
-	/* Load file */
-/*
-	var req = new XMLHttpRequest();
-	req.open("GET", "json/demo.txt", true);
-	req.overrideMimeType("application/text");
-	req.send(null);
-
-	req.onreadystatechange = function(){
-		if(req.status === 200 && req.readyState === 4){
-			var result = req.response.split("```"); 
-
-			for(i=0; i<result.length; i++){
-
-				if(i === 0){
-					result[i] = result[i].slice(0, -2);
-				}
-				else{
-					result[i] = result[i].slice(2, -2);
-				}
-				console.log(i + " " + result[i]);
-			}
-
-			$("header h2").text(result[0]);
-			setTimeout(function(){
-				htmleditor.getDoc().setValue(result[1]);
-				jseditor.getDoc().setValue(result[2]);
-				csseditor.getDoc().setValue(result[3]);
-				//execute(htmleditor, jseditor, csseditor);
-			}, 500);
-
-		}
+	/* Load file asynchronously on request */
+	if(window.location.href.split("#")[1]){
+		//alert("true");
+		loadFileAJAX(window.location.href.split("#")[1], htmleditor, jseditor, csseditor);
 	}
-*/
 
 	/* Setup the Environment */
 	changeView(htmleditor, jseditor, csseditor);
 	changeTheme($("#themes li:nth-child(2)"), htmleditor, jseditor, csseditor);
 	refresh();
 	
+	/* Show External Resource */
+	$("#external_resource_button").on("click", function(){
+		if($("#external_resource").is(":hidden")){
+			reset();
+			$("#external_resource").show();
+			$("#external_resource_input input").focus();	
+		}else{
+			$("#external_resource").hide();
+		}
+	});
+
+	/* Add External Resource */
+	$("#external_resource_input img").on('click', function(){
+		addExternalUri();
+	});	
+	
+	/* Remove External Resource */
+	$("#external_resource").on('click','.external_resource_list div', function(){
+		removeExternalUri($(this));
+	});
+
 	/* Show Themes */
 	$("#theme_button").on("click", function(){
 		if($("#themes").is(":hidden")){
+			reset();
 			$("#themes").show();			
 		}else{
 			$("#themes").hide();
@@ -122,36 +125,136 @@ $(document).ready(function(){
 		refresh();
 	});
 
-	function refresh(){
-		htmleditor.refresh();
-		jseditor.refresh();
-		csseditor.refresh();
-	}
 
 	/* Load File */
 	$('input[type=file]').on('change', function(){
 		loadFile(htmleditor, jseditor, csseditor);
 	});
 
-	/* Save File */
+	/* Show Save Dialog */
 	$("#file-download").on('click', function(){
 		if($("#savefile").hasClass("show-save-dialog")){
 			$("#savefile").removeClass("show-save-dialog");	
 		}else{
+			reset();
 			$("#savefile").addClass("show-save-dialog");	
+			$("#savefile input").focus();
 		}
 	});
 
+	/* Save File */
 	$("#save-button").on('click', function(){
 		saveFile(htmleditor, jseditor, csseditor);
 	});
 
 	/* Clear red background on file name input box on input */
-	$("#file-name").on('input', function(){
+	$("#file-name, #external_resource_input input").on('input', function(){
 		$(this).removeClass("input-alert");	
 	});
+
+	/* Handle keyboard events */
+	$(document).keyup(function(e) {
+    	if (e.keyCode == 27) {
+    		reset();
+	    }
+	});
+	$(window).bind('keydown', function(event) {
+	    if (event.ctrlKey || event.metaKey) {
+	        switch (String.fromCharCode(event.which).toLowerCase()) {
+	        case 's':
+	            event.preventDefault();
+	            if($("#savefile").hasClass("show-save-dialog")){
+					$("#savefile").removeClass("show-save-dialog");	
+				}else{
+					reset();
+					$("#savefile").addClass("show-save-dialog");	
+					$("#savefile input").focus();
+				}
+	            break;
+	        case 'o':
+	            event.preventDefault();
+	            $("#file-upload").trigger("click");
+	      		break;
+	        }
+	    }
+	});
+
+	/* Reset Dropdowns */
+	function reset(){
+		$("#external_resource, #themes").hide();
+		$("#savefile").removeClass("show-save-dialog");
+	}
+
+	/* Refresh windows */
+	function refresh(){
+		htmleditor.refresh();
+		jseditor.refresh();
+		csseditor.refresh();
+	}
 });
 
+
+function addExternalUri(){
+	if($("#external_resource_input input").val()){
+		input_uri = $("#external_resource_input input").val();
+
+		$("#external_resource_input").after($("<div class='external_resource_list'>" + 
+		"<input type='text' name='External Resource' value='" + input_uri + "'>" + 
+		"<div><img src='media/icons/plus.png'></div>" +
+		"</div>"));
+		$(".external_resource_list_translate").removeClass("external_resource_list_translate");
+
+
+		this_item = $("#external_resource_input").next("div");
+		list_items = $("#external_resource_input").nextAll("div");
+		setTimeout(function(){
+			this_item.find("img").addClass("external_resource_list_img_added");
+			this_item.children("div").addClass("external_resource_list_div_added");
+			list_items.addClass("external_resource_list_translate"); 
+		}, 50);
+		$("#external_resource_input input").val("");
+	}else{
+		$("#external_resource_input input").addClass("input-alert");
+	}
+}
+
+function removeExternalUri(element){
+	element.removeClass("external_resource_list_div_added");
+	element.children("img").removeClass("external_resource_list_img_added");
+	element.parent().slideUp(500, function() { $(this).remove(); } );
+
+}
+
+function loadFileAJAX(file, htmleditor, jseditor, csseditor){
+	var req = new XMLHttpRequest();
+	req.open("GET", file, true);
+	req.overrideMimeType("application/text");
+	req.send(null);
+
+	req.onreadystatechange = function(){
+		if(req.status === 200 && req.readyState === 4){
+			var result = req.response.split("```"); 
+
+			for(i=0; i<result.length; i++){
+
+				if(i === 0){
+					result[i] = result[i].slice(0, -2);
+				}
+				else{
+					result[i] = result[i].slice(2, -2);
+				}
+				console.log(i + " " + result[i]);
+			}
+
+				$("header h2").text(result[0]);
+				setResource(result[1]);
+				htmleditor.getDoc().setValue(result[2]);
+				jseditor.getDoc().setValue(result[3]);
+				csseditor.getDoc().setValue(result[4]);
+				execute(htmleditor, jseditor, csseditor);
+		}
+	}
+}
 
 function loadFile(htmleditor, jseditor, csseditor){
 	var file = document.getElementById("file-upload").files[0];
@@ -159,25 +262,24 @@ function loadFile(htmleditor, jseditor, csseditor){
 	    var reader = new FileReader();
 	    reader.readAsText(file, "UTF-8");
 	    reader.onload = function (evt) {
-		// console.log(evt.target.result);
 
 		var result = evt.target.result.split("```"); 
 			for(i=0; i<result.length; i++){
 
 				if(i === 0){
-					result[i] = result[i].slice(0, -1);
+					result[i] = result[i].slice(0, -2);
 				}
 				else{
-					result[i] = result[i].slice(1, -1);
+					result[i] = result[i].slice(2, -2);
 				}
 				console.log(i + " " + result[i]);
 			}
-
-				$("header h2").text(result[0]);
-				htmleditor.getDoc().setValue(result[1]);
-				jseditor.getDoc().setValue(result[2]);
-				csseditor.getDoc().setValue(result[3]);
-				execute(htmleditor, jseditor, csseditor);
+			$("header h2").text(result[0]);
+			setResource(result[1]);
+			htmleditor.getDoc().setValue(result[2]);
+			jseditor.getDoc().setValue(result[3]);
+			csseditor.getDoc().setValue(result[4]);
+			execute(htmleditor, jseditor, csseditor);
 	    }
 	    reader.onerror = function (evt) {
 	        console.log("error reading file");
@@ -185,17 +287,34 @@ function loadFile(htmleditor, jseditor, csseditor){
 	}
 }
 
+function setResource(resources){
+	$('#external_resource_input').nextAll('div').remove();
+	
+	var resource = resources.split("\r\n"); 
+	for(i=0; i<resource.length; i++){
+		// $("#external_resource_input").after($("<div class='external_resource_list external_resource_list_translate'>" + 
+		// "<input type='text' name='External Resource' value='" + resource[i] + "'>" + 
+		// "<div class='external_resource_list_div_added'><img class='external_resource_list_img_added' src='media/icons/plus.png'></div>" +
+		// "</div>"));
+		$("#external_resource_input").after($("<div class='external_resource_list external_resource_list_translate'>" + 
+		"<input type='text' name='External Resource' value='" + resource[i] + "'>" + 
+		"<div class='external_resource_list_div_added'><img class='external_resource_list_img_added' src='media/icons/plus.png'></div>" +
+		"</div>"));
+		console.log(i + " " + resource[i]);
+	}
+}
+
 function saveFile(htmleditor, jseditor, csseditor){
 	if($("#file-name").val()){
-			$("#savefile").removeClass("show-save-dialog");	
+		$("#savefile").removeClass("show-save-dialog");	
 
-			var newfile = $("#file-name").val() + "\n```\n" + htmleditor.getValue() + "\n```\n" + jseditor.getValue() + "\n```\n" + csseditor.getValue() + "\n";
-			var blob = new Blob([newfile], {type: "text/plain;charset=utf-8"});
-			saveAs(blob, $("#file-name").val() + ".txt");
-		}
-		else{
-			$("#file-name").addClass("input-alert");	
-		}
+		var newfile = $("#file-name").val() + "\r\n```\r\n" + getResource("plain") + "\r\n```\r\n" + htmleditor.getValue() + "\r\n```\r\n" + jseditor.getValue() + "\r\n```\r\n" + csseditor.getValue() + "\r\n";
+		var blob = new Blob([newfile], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, $("#file-name").val() + ".txt");
+	}
+	else{
+		$("#file-name").addClass("input-alert");	
+	}
 }
 
 function htmlDecode(input){
@@ -205,12 +324,56 @@ function htmlDecode(input){
 }
 
 function execute(htmleditor,jseditor,csseditor){
-	myIframe = $('#result_box');
-	myIframe.contents().find('html').html("<style>"+csseditor.getValue()+"</style>"+htmleditor.getValue());
-	setTimeout(function(){
-		document.getElementById('result_box').contentWindow.eval( jseditor.getValue() );
-	}, 3000);
 	
+	var resource = getResource("with_tags");
+
+	var iframe = document.createElement('iframe');
+	iframe.id = "result_iframe";
+
+	content = 
+'<!doctype html>' + 
+'<html lang="en">' +
+	'<head>' + 
+		'<meta charset = "utf-8">' + 
+		resource + 
+	'</head>' +
+	'<body>' +
+		htmleditor.getValue() +
+	'</body>' +
+
+	'<style>' + 
+		csseditor.getValue() + 
+	'</style>' +
+	'<scr' + 'ipt>' + 
+		jseditor.getValue() + 
+	'</scr' + 'ipt>' + 
+'</html>'
+
+	iframe.src = 'data:text/html;charset=utf-8,' + encodeURI(content);
+	myIframe = $('#result_box').empty().append( iframe );
+}
+
+function getResource(type){
+	var resources = [];
+	
+	$($(".external_resource_list input").get().reverse()).each(function(index){
+		resources.push($(this).val());
+	});
+
+	if(type == "with_tags"){
+		for(var i = 0; i< resources.length; i++){
+			if(resources[i].slice(resources[i].length - 3, resources[i].length) === ".js"){
+				resources[i] = "<scr" + "ipt src='" + resources[i] + "'></scr" + "ipt>";
+			}else if(resources[i].slice(resources[i].length - 4,resources[i].length) === ".css"){
+				resources[i] = "<link rel='stylesheet' href='" + resources[i] + "'>"
+			}
+		}
+	}
+
+	var resource = resources.join();
+	var resource = resource.replace(/,/g, "\r\n");
+
+	return resource;
 }
 
 function changeView(){
