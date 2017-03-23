@@ -64,12 +64,14 @@ header{
 
 header h2{
 	position: absolute;
-	left: calc(50% - 5rem);
-	width: 10rem;
-	overflow-y: none;
+	left: calc(50% - 10rem);
+	width: 20rem;
 	text-align: center;
 	font-size: 1rem;
 	color: #eee;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 header h2:hover{

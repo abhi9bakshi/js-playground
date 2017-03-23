@@ -159,6 +159,14 @@ $(document).ready(function(){
     	if (e.keyCode == 27) {
     		reset();
 	    }
+	    if(e.keyCode == 13) {
+	        if($("#external_resource_input input").is(":focus")){
+	        	addExternalUri();
+	        }
+	        else if($("#savefile input").is(":focus")){
+	        	saveFile(htmleditor, jseditor, csseditor);
+	        }
+    	}
 	});
 	$(window).bind('keydown', function(event) {
 	    if (event.ctrlKey || event.metaKey) {
@@ -198,23 +206,27 @@ $(document).ready(function(){
 
 function addExternalUri(){
 	if($("#external_resource_input input").val()){
-		input_uri = $("#external_resource_input input").val();
+		if($("#external_resource_input input").val().endsWith(".js") || $("#external_resource_input input").val().endsWith(".css")){
+			input_uri = $("#external_resource_input input").val();
 
-		$("#external_resource_input").after($("<div class='external_resource_list'>" + 
-		"<input type='text' name='External Resource' value='" + input_uri + "'>" + 
-		"<div><img src='media/icons/plus.png'></div>" +
-		"</div>"));
-		$(".external_resource_list_translate").removeClass("external_resource_list_translate");
+			$("#external_resource_input").after($("<div class='external_resource_list'>" + 
+			"<input type='text' name='External Resource' value='" + input_uri + "'>" + 
+			"<div><img src='media/icons/plus.png'></div>" +
+			"</div>"));
+			$(".external_resource_list_translate").removeClass("external_resource_list_translate");
 
 
-		this_item = $("#external_resource_input").next("div");
-		list_items = $("#external_resource_input").nextAll("div");
-		setTimeout(function(){
-			this_item.find("img").addClass("external_resource_list_img_added");
-			this_item.children("div").addClass("external_resource_list_div_added");
-			list_items.addClass("external_resource_list_translate"); 
-		}, 50);
-		$("#external_resource_input input").val("");
+			this_item = $("#external_resource_input").next("div");
+			list_items = $("#external_resource_input").nextAll("div");
+			setTimeout(function(){
+				this_item.find("img").addClass("external_resource_list_img_added");
+				this_item.children("div").addClass("external_resource_list_div_added");
+				list_items.addClass("external_resource_list_translate"); 
+			}, 50);
+			$("#external_resource_input input").val("");
+		}else{
+			$("#external_resource_input input").addClass("input-alert");
+		}
 	}else{
 		$("#external_resource_input input").addClass("input-alert");
 	}
@@ -224,7 +236,6 @@ function removeExternalUri(element){
 	element.removeClass("external_resource_list_div_added");
 	element.children("img").removeClass("external_resource_list_img_added");
 	element.parent().slideUp(500, function() { $(this).remove(); } );
-
 }
 
 function loadFileAJAX(file, htmleditor, jseditor, csseditor){
