@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+	/* Show playground */
+	$("#playground").show();
+
 	/* Initialize HTML mixed mode */
 	var mixedMode = {
         name: "htmlmixed",
@@ -202,7 +205,8 @@ function htmlDecode(input){
 }
 
 function execute(htmleditor,jseditor,csseditor){
-	$('#result_box').contents().find('html').html("<style>"+csseditor.getValue()+"</style>"+htmleditor.getValue());
+	myIframe = $('#result_box');
+	myIframe.contents().find('html').html("<style>"+csseditor.getValue()+"</style>"+htmleditor.getValue());
 	setTimeout(function(){
 		document.getElementById('result_box').contentWindow.eval( jseditor.getValue() );
 	}, 3000);

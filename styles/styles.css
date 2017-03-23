@@ -143,6 +143,7 @@ header ul li i:hover{
 }
 /*************** Playground Styles ***************/
 #playground{
+	display: none;
 	position: absolute;
 	top: 2.5rem;
 	left: 0rem;
