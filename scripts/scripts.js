@@ -240,10 +240,10 @@ function loadFileAJAX(file, htmleditor, jseditor, csseditor){
 			for(i=0; i<result.length; i++){
 
 				if(i === 0){
-					result[i] = result[i].slice(0, -2);
+					result[i] = result[i].slice(0, -1);
 				}
 				else{
-					result[i] = result[i].slice(2, -2);
+					result[i] = result[i].slice(1, -1);
 				}
 				console.log(i + " " + result[i]);
 			}
@@ -269,10 +269,10 @@ function loadFile(htmleditor, jseditor, csseditor){
 			for(i=0; i<result.length; i++){
 
 				if(i === 0){
-					result[i] = result[i].slice(0, -2);
+					result[i] = result[i].slice(0, -1);
 				}
 				else{
-					result[i] = result[i].slice(2, -2);
+					result[i] = result[i].slice(1, -1);
 				}
 				console.log(i + " " + result[i]);
 			}
@@ -292,7 +292,7 @@ function loadFile(htmleditor, jseditor, csseditor){
 function setResource(resources){
 	$('#external_resource_input').nextAll('div').remove();
 	
-	var resource = resources.split("\r\n"); 
+	var resource = resources.split("\n"); 
 	for(i=0; i<resource.length; i++){
 		// $("#external_resource_input").after($("<div class='external_resource_list external_resource_list_translate'>" + 
 		// "<input type='text' name='External Resource' value='" + resource[i] + "'>" + 
@@ -310,7 +310,7 @@ function saveFile(htmleditor, jseditor, csseditor){
 	if($("#file-name").val()){
 		$("#savefile").removeClass("show-save-dialog");	
 
-		var newfile = $("#file-name").val() + "\r\n```\r\n" + getResource("plain") + "\r\n```\r\n" + htmleditor.getValue() + "\r\n```\r\n" + jseditor.getValue() + "\r\n```\r\n" + csseditor.getValue() + "\r\n";
+		var newfile = $("#file-name").val() + "\n```\n" + getResource("plain") + "\n```\n" + htmleditor.getValue() + "\n```\n" + jseditor.getValue() + "\n```\n" + csseditor.getValue() + "\n";
 		var blob = new Blob([newfile], {type: "text/plain;charset=utf-8"});
 		saveAs(blob, $("#file-name").val() + ".txt");
 	}
@@ -373,7 +373,7 @@ function getResource(type){
 	}
 
 	var resource = resources.join();
-	var resource = resource.replace(/,/g, "\r\n");
+	var resource = resource.replace(/,/g, "\n");
 
 	return resource;
 }
