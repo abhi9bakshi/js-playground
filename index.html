@@ -24,6 +24,9 @@
 <script src="scripts/blob.js" ></script>
 <script src="scripts/filesaver.js" ></script>
 
+<!-- Keyboard Shortcut Keys Handler -->
+<script src="scripts/shortcuts.js" ></script>
+
 <!-- Codemirror -->
 <link rel="stylesheet" href="addon/show-hint.css">
 <link rel="stylesheet" href="styles/codemirror.css">
@@ -78,7 +81,10 @@
 		    <i class="fa fa-paint-brush" title="Theme" aria-hidden="true"></i>
 		</li>
 		<li id="view_button">
-		    <i class="fa fa-pause" title="View" aria-hidden="true"></i>
+		    <i class="fa fa-th-large" title="View" aria-hidden="true"></i>
+		</li>
+		<li id="clear_button">
+		    <i class="fa fa-trash" title="Clear All" aria-hidden="true"></i>
 		</li>
 	</ul>
 </header>
@@ -113,33 +119,27 @@
 
 <section id="playground">
 
-<div id="bg-border"></div>
+	<!-- Codemirror Windows -->
+	<textarea id="html_box"></textarea> 
 
-<div id="tabs">
-	<ul>
-		<li class="active-li">HTML</li>
-		<li>JS</li>
-		<li>CSS</li>
-	</ul>
-</div>
+	<textarea id="js_box"></textarea>
 
-	<textarea id="html_box">
-<p>Hello World</p>
-	</textarea> 
+	<textarea id="css_box"></textarea>
 
-	<textarea id="js_box">
-console.log("Hello World");
-	</textarea>
+	<!-- Other Playground Items -->
+	<div id="tabs">
+		<ul>
+			<li>HTML</li>
+			<li class="active-li">JS</li>
+			<li>CSS</li>
+		</ul>
+	</div>
 
-	<textarea id="css_box">
-p
-{	
-	color: pink;
-	border: 3px dashed red;	
-}
-	</textarea>
+	<div id="bg-border"></div>
 
    	<div id="result_box"></div>
+
+	<div id="resources_box"></div>
 </section>
 
 <footer>

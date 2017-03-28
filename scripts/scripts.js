@@ -61,18 +61,24 @@ $(document).ready(function(){
 
 
 	/* Load file asynchronously on request */
-	// setTimeout(function(){ 
 	if(window.location.href.split("#")[1]){
-		//alert("true");
 		loadFileAJAX(window.location.href.split("#")[1], htmleditor, jseditor, csseditor);
 	}
-	// }, 5000);
-
+	
 	/* Setup the Environment */
 	changeView(htmleditor, jseditor, csseditor);
 	changeTheme($("#themes li:nth-child(2)"), htmleditor, jseditor, csseditor);
 	refresh();
+	setFocus(2);
+
 	
+
+	/* ************************ Header Buttons Handler ************************ */
+	/* Execute Script */
+	$("#run_button").on("click", function(){
+		execute(htmleditor, jseditor, csseditor);
+	});
+
 	/* Show External Resource */
 	$("#external_resource_button").on("click", function(){
 		if($("#external_resource").is(":hidden")){
@@ -108,26 +114,50 @@ $(document).ready(function(){
 	$("#themes li").on("click", function(){
 		changeTheme(this, htmleditor, jseditor, csseditor);
 		refresh();
+		setFocus(focus);
 	});
 
 	/* Toggle View */
 	$("#view_button").on("click", function(){
-		changeView();
+		var focus = changeView();
+		console.log("focus: " + focus);
 		refresh();
+		setFocus(focus);
 	});
 
-	/* Execute Script */
-	$("#run_button").on("click", function(){
-		execute(htmleditor, jseditor, csseditor);
+	/* Clear Contents */
+	$("#clear_button").on("click",function(){
+		var result = confirm("Are you sure you wish to clear everything? Any unsaved changes will be lost.");
+		if (result) {
+    		setResource("https://code.jquery.com/jquery-3.2.1.min.js");
+			htmleditor.getDoc().setValue("");
+			jseditor.getDoc().setValue("");
+			csseditor.getDoc().setValue("");
+			$('#result_box').empty();
+    	}
 	});
 
+	/* ************************ Tabs Handler ************************ */
 	/* Handle Tabs Click */
 	$("#tabs ul li").on("click", function(){
-		switchtab(this);
+		var focus = switchtab(this);
 		refresh();
+		setFocus(focus);
 	});
 
+	/* Set Tab Active on Focus */
+	htmleditor.on('focus', function() {
+    	switchtab($("#tabs ul li:nth-child(1)"), 1);
+    });
+	jseditor.on('focus', function() {
+    	switchtab($("#tabs ul li:nth-child(2)"), 1);
+    });
+	csseditor.on('focus', function() {
+    	switchtab($("#tabs ul li:nth-child(3)"), 1);
+    });
 
+	
+	/* ************************ Footer Buttons Handler ************************ */
 	/* Load File */
 	$('input[type=file]').on('change', function(){
 		loadFile(htmleditor, jseditor, csseditor);
@@ -154,45 +184,83 @@ $(document).ready(function(){
 		$(this).removeClass("input-alert");	
 	});
 
-	/* Handle keyboard events */
-	$(document).keyup(function(e) {
-    	if (e.keyCode == 27) {
-    		reset();
-	    }
-	    if(e.keyCode == 13) {
-	        if($("#external_resource_input input").is(":focus")){
+
+/* ************************ Keyboard Events Handler ************************ */
+	shortcut.add("ESC",function() {
+		reset();
+	});
+	shortcut.add("ENTER",function() {
+		if($("#external_resource_input input").is(":focus")){
 	        	addExternalUri();
 	        }
 	        else if($("#savefile input").is(":focus")){
 	        	saveFile(htmleditor, jseditor, csseditor);
-	        }
-    	}
+        }
 	});
-	$(window).bind('keydown', function(event) {
-	    if (event.ctrlKey || event.metaKey) {
-	        switch (String.fromCharCode(event.which).toLowerCase()) {
-	        case 's':
-	            event.preventDefault();
-	            if($("#savefile").hasClass("show-save-dialog")){
-					$("#savefile").removeClass("show-save-dialog");	
-				}else{
-					reset();
-					$("#savefile").addClass("show-save-dialog");	
-					$("#savefile input").focus();
-				}
-	            break;
-	        case 'o':
-	            event.preventDefault();
-	            $("#file-upload").trigger("click");
-	      		break;
-	        }
-	    }
+	shortcut.add("CTRL+F11",function() {
+		execute(htmleditor, jseditor, csseditor);
 	});
+	shortcut.add("CTRL+1",function() {
+		if($("#external_resource").is(":hidden")){
+			reset();
+			$("#external_resource").show();
+			$("#external_resource_input input").focus();	
+		}else{
+			$("#external_resource").hide();
+		}
+	});
+	shortcut.add("CTRL+2",function() {
+		if($("#themes").is(":hidden")){
+			reset();
+			$("#themes").show();
+			$("#themes li:first").hover();			
+		}else{
+			$("#themes").hide();
+		}
+	});
+	shortcut.add("CTRL+3",function() {
+		changeView();
+		refresh();
+	});	
+	shortcut.add("CTRL+4",function() {
+		$("#clear_button").trigger("click");
+	});	
+
+	shortcut.add("CTRL+S",function() {
+		if($("#savefile").hasClass("show-save-dialog")){
+			$("#savefile").removeClass("show-save-dialog");	
+		}else{
+			reset();
+			$("#savefile").addClass("show-save-dialog");	
+			$("#savefile input").focus();
+		}
+	});
+	shortcut.add("CTRL+O",function() {
+		$("#file-upload").trigger("click");
+	});
+
+	shortcut.add("F11",function() {
+		// htmleditor.on('focus', function() {
+  //   		$(".CodeMirror:nth-child(1)").addClass("fullscreen");
+  //   		return;
+  //   	});
+		// jseditor.on('focus', function() {
+  //   		$(".CodeMirror:nth-child(2)").addClass("fullscreen");
+  //   		return;
+  //   	});
+		// csseditor.on('focus', function() {
+  //   		$(".CodeMirror:nth-child(3)").addClass("fullscreen");
+  //   		return;
+  //   	});
+  //   	$("#result_box").addClass("fullscreen");
+	});
+
 
 	/* Reset Dropdowns */
 	function reset(){
 		$("#external_resource, #themes").hide();
 		$("#savefile").removeClass("show-save-dialog");
+		$("#result_box, .CodeMirror:nth-child(1), .CodeMirror:nth-child(2), .CodeMirror:nth-child(3)").removeClass("fullscreen");
 	}
 
 	/* Refresh windows */
@@ -201,12 +269,23 @@ $(document).ready(function(){
 		jseditor.refresh();
 		csseditor.refresh();
 	}
-});
 
+	function setFocus(id){
+		if(id === 1){
+			htmleditor.focus();
+		}else if(id === 2){
+			jseditor.focus();
+		}else if(id === 3){
+			csseditor.focus();
+		}else{
+			jseditor.focus();
+		}
+	}
+});
 
 function addExternalUri(){
 	if($("#external_resource_input input").val()){
-		if($("#external_resource_input input").val().endsWith(".js") || $("#external_resource_input input").val().endsWith(".css")){
+		// if($("#external_resource_input input").val().endsWith(".js") || $("#external_resource_input input").val().endsWith(".css")){
 			input_uri = $("#external_resource_input input").val();
 
 			$("#external_resource_input").after($("<div class='external_resource_list'>" + 
@@ -224,9 +303,10 @@ function addExternalUri(){
 				list_items.addClass("external_resource_list_translate"); 
 			}, 50);
 			$("#external_resource_input input").val("");
-		}else{
-			$("#external_resource_input input").addClass("input-alert");
-		}
+			$("#external_resource_input input").focus();
+		// }else{
+		// 	$("#external_resource_input input").addClass("input-alert");
+		// }
 	}else{
 		$("#external_resource_input input").addClass("input-alert");
 	}
@@ -285,7 +365,7 @@ function loadFile(htmleditor, jseditor, csseditor){
 				else{
 					result[i] = result[i].slice(1, -1);
 				}
-				console.log(i + " " + result[i]);
+				// console.log(i + " " + result[i]);
 			}
 			$("header h2").text(result[0]);
 			setResource(result[1]);
@@ -303,17 +383,15 @@ function loadFile(htmleditor, jseditor, csseditor){
 function setResource(resources){
 	$('#external_resource_input').nextAll('div').remove();
 	
-	var resource = resources.split("\n"); 
-	for(i=0; i<resource.length; i++){
-		// $("#external_resource_input").after($("<div class='external_resource_list external_resource_list_translate'>" + 
-		// "<input type='text' name='External Resource' value='" + resource[i] + "'>" + 
-		// "<div class='external_resource_list_div_added'><img class='external_resource_list_img_added' src='media/icons/plus.png'></div>" +
-		// "</div>"));
-		$("#external_resource_input").after($("<div class='external_resource_list external_resource_list_translate'>" + 
-		"<input type='text' name='External Resource' value='" + resource[i] + "'>" + 
-		"<div class='external_resource_list_div_added'><img class='external_resource_list_img_added' src='media/icons/plus.png'></div>" +
-		"</div>"));
-		console.log(i + " " + resource[i]);
+	if(resources !== ""){	
+		var resource = resources.split("\n"); 
+		for(i=0; i<resource.length; i++){
+			$("#external_resource_input").after($("<div class='external_resource_list external_resource_list_translate'>" + 
+			"<input type='text' name='External Resource' value='" + resource[i] + "'>" + 
+			"<div class='external_resource_list_div_added'><img class='external_resource_list_img_added' src='media/icons/plus.png'></div>" +
+			"</div>"));
+			// console.log(i + " " + resource[i]);
+		}
 	}
 }
 
@@ -343,6 +421,8 @@ function execute(htmleditor,jseditor,csseditor){
 	var iframe = document.createElement('iframe');
 	iframe.id = "result_iframe";
 
+	//console.log("css: " + csseditor.getValue());
+
 	content = 
 '<!doctype html>' + 
 '<html lang="en">' +
@@ -362,7 +442,7 @@ function execute(htmleditor,jseditor,csseditor){
 	'</scr' + 'ipt>' + 
 '</html>'
 
-	iframe.src = 'data:text/html;charset=utf-8,' + encodeURI(content);
+	iframe.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(content);
 	myIframe = $('#result_box').empty().append( iframe );
 }
 
@@ -375,9 +455,11 @@ function getResource(type){
 
 	if(type == "with_tags"){
 		for(var i = 0; i< resources.length; i++){
-			if(resources[i].slice(resources[i].length - 3, resources[i].length) === ".js"){
+			// if(resources[i].slice(resources[i].length - 3, resources[i].length) === ".js"){
+			if(resources[i].toLowerCase().indexOf("js") >= 0){
 				resources[i] = "<scr" + "ipt src='" + resources[i] + "'></scr" + "ipt>";
-			}else if(resources[i].slice(resources[i].length - 4,resources[i].length) === ".css"){
+			// }else if(resources[i].slice(resources[i].length - 4,resources[i].length) === ".css"){
+			}else if(resources[i].toLowerCase().indexOf("css") >= 0){
 				resources[i] = "<link rel='stylesheet' href='" + resources[i] + "'>"
 			}
 		}
@@ -390,22 +472,31 @@ function getResource(type){
 }
 
 function changeView(){
+	var id = undefined;
 	// Change to grid
 	if($("#view_button i").hasClass("fa-th-large")){
 		$(".CodeMirror").each(function(index, element){
 			$(this).removeClass("view-two-pane").addClass("view-grid");
 		});
 
-		$(".CodeMirror:nth-child(3)").removeClass("two-pane-html").addClass("grid-html");
-		$(".CodeMirror:nth-child(4)").removeClass("two-pane-js").addClass("grid-js");
-		$(".CodeMirror:nth-child(5)").removeClass("two-pane-css").addClass("grid-css");
+		$(".CodeMirror:nth-child(1)").removeClass("two-pane-html").addClass("grid-html");
+		$(".CodeMirror:nth-child(2)").removeClass("two-pane-js").addClass("grid-js");
+		$(".CodeMirror:nth-child(3)").removeClass("two-pane-css").addClass("grid-css");
 		$("#result_box").removeClass("two-pane-result-box").addClass("grid-result-box");
+		
+		$("#view_button i").removeClass("fa-th-large").addClass("fa-pause");
 		$("#tabs").hide();
 
-		$("#view_button i").removeClass("fa-th-large").addClass("fa-pause");
-
 		// Show all windows
-		$(".CodeMirror:nth-child(3), .CodeMirror:nth-child(4), .CodeMirror:nth-child(5)").show();
+		$(".CodeMirror:nth-child(1), .CodeMirror:nth-child(2), .CodeMirror:nth-child(3)").show();
+
+		// Return ID of active window to set focus
+		$("#tabs ul li").each(function(index){
+			if($(this).hasClass("active-li")){
+				id = index+1;
+				console.log("innerfocus: " + id);
+			}
+		});
 	}
 	// Change to two pane
 	else if($("#view_button i").hasClass("fa-pause")){
@@ -413,36 +504,40 @@ function changeView(){
 			$(this).addClass("view-two-pane").removeClass("view-grid");
 		});
 
-		$(".CodeMirror:nth-child(3)").addClass("two-pane-html").removeClass("grid-html");
-		$(".CodeMirror:nth-child(4)").addClass("two-pane-js").removeClass("grid-js");
-		$(".CodeMirror:nth-child(5)").addClass("two-pane-css").removeClass("grid-css");
+		$(".CodeMirror:nth-child(1)").addClass("two-pane-html").removeClass("grid-html");
+		$(".CodeMirror:nth-child(2)").addClass("two-pane-js").removeClass("grid-js");
+		$(".CodeMirror:nth-child(3)").addClass("two-pane-css").removeClass("grid-css");
 		$("#result_box").addClass("two-pane-result-box").removeClass("grid-result-box");
 		$("#tabs").show();
 
 		$("#view_button i").addClass("fa-th-large").removeClass("fa-pause");
 
 		// Show only active windows
-		$(".CodeMirror:nth-child(3), .CodeMirror:nth-child(4), .CodeMirror:nth-child(5)").hide();
+		$(".CodeMirror:nth-child(1), .CodeMirror:nth-child(2), .CodeMirror:nth-child(3)").hide();
 		$("#tabs ul li").each(function(index){
 			if($(this).hasClass("active-li")){
-				var id = index+3;
+				id = index+1;
 				$(".CodeMirror:nth-child(" + id + ")").show();
 			}
 		});
 	}
+	return id;
 }
 
-function switchtab(element){
+function switchtab(element, show){
 	if(!$(element).hasClass("active-li")){
 		//Set active class
 		$("#tabs ul li").each(function(){
 			$(this).removeClass("active-li");
 		});
 		$(element).addClass("active-li");
+		if(!show){
+			$(".CodeMirror:nth-child(1), .CodeMirror:nth-child(2), .CodeMirror:nth-child(3)").hide();
+		}
 		// Switch active window
-		$(".CodeMirror:nth-child(3), .CodeMirror:nth-child(4), .CodeMirror:nth-child(5)").hide();
-		var id = $(element).index() + 3;
+		var id = $(element).index() + 1;
 		$(".CodeMirror:nth-child(" + id + ")").show();
+		return id;
 	}
 }
 
