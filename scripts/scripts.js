@@ -63,6 +63,8 @@ $(document).ready(function(){
 	/* Load file asynchronously on request */
 	if(window.location.href.split("#")[1]){
 		loadFileAJAX(window.location.href.split("#")[1], htmleditor, jseditor, csseditor);
+	}else{
+		loadFileAJAX("projects/JS Playground", htmleditor, jseditor, csseditor);
 	}
 	
 	/* Setup the Environment */
@@ -127,7 +129,7 @@ $(document).ready(function(){
 
 	/* Clear Contents */
 	$("#clear_button").on("click",function(){
-		clearContents();
+		clearContents(htmleditor, jseditor, csseditor);
 	});
 
 	/* ************************ Tabs Handler ************************ */
@@ -327,7 +329,7 @@ function removeExternalUri(element){
 
 function loadFileAJAX(file, htmleditor, jseditor, csseditor){
 	var req = new XMLHttpRequest();
-	req.open("GET", file, true);
+	req.open("GET", file + ".txt", true);
 	req.overrideMimeType("application/text");
 	req.send(null);
 
@@ -533,7 +535,7 @@ function changeView(){
 	return id;
 }
 
-function clearContents(){
+function clearContents(htmleditor, jseditor, csseditor){
 	var result = confirm("Are you sure you wish to clear everything? Any unsaved changes will be lost.");
 	if (result) {
 		setResource("https://code.jquery.com/jquery-3.2.1.min.js");
