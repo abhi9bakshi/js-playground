@@ -1,0 +1,94 @@
+﻿js_playdround_default
+```
+https://code.jquery.com/jquery-3.2.1.min.js
+https://fonts.googleapis.com/css?family=Quicksand
+https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
+```
+<h1>
+  JS Playground
+</h1>
+
+<table>
+  <tr>
+  	<td><i class="fa fa-play" aria-hidden="true" style="color:#1FD131"></i></td>
+    <td>Run</td>
+    <td>Ctrl + F11</td>
+  </tr>
+  <tr>
+  	<td><i class="fa fa-plus" aria-hidden="true"></i></td>
+    <td>Add External Resource</td>
+    <td>Ctrl + 1</td>
+  </tr>
+  <tr>
+  	<td><i class="fa fa-paint-brush" aria-hidden="true"></i></td>
+    <td>Change Theme</td>
+    <td>Ctrl + 2</td>
+  </tr>
+  <tr>
+  	<td><i class="fa fa-th-large" aria-hidden="true"></i></td>
+    <td>Switch View</td>
+    <td>Ctrl + 3</td>
+  </tr>
+  <tr>
+  	<td><i class="fa fa-trash" aria-hidden="true"></i></td>
+    <td>Clear All</td>
+    <td>Ctrl + 4</td>
+  </tr>
+  <tr>
+  	<td><i class="fa fa-upload" aria-hidden="true"></i></td>
+    <td>Load File</td>
+    <td>Ctrl + O</td>
+  </tr>
+  <tr>
+  	<td><i class="fa fa-download" aria-hidden="true"></i></td>
+    <td>Save File</td>
+    <td>Ctrl + S</td>
+  </tr>
+  <tr>
+  	<td><i class="fa fa-arrows-alt" aria-hidden="true"></i></td>
+    <td>Fullscreen</td>
+    <td>F11</td>
+  </tr>
+  
+
+</table>
+```
+
+```
+body{
+  background-color: #f7df1d;
+  font-family: 'Quicksand', sans-serif;
+}
+
+h1{
+  color: #030203;
+  margin: 6rem auto;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 100;
+}
+
+hr{
+  color: #030203;
+  margin: 20px 15% 0;
+}
+
+table{
+  width: 100%;
+  padding: 0 15%;
+  font-size: 1rem;
+}
+
+td{
+  padding: 1rem 0;
+}
+
+td:nth-child(1){
+  	font-size: 1.6rem;
+    text-align: left;
+  	width: 20%;
+}
+
+td:nth-child(3){
+    text-align: left;
+}

@@ -127,14 +127,7 @@ $(document).ready(function(){
 
 	/* Clear Contents */
 	$("#clear_button").on("click",function(){
-		var result = confirm("Are you sure you wish to clear everything? Any unsaved changes will be lost.");
-		if (result) {
-    		setResource("https://code.jquery.com/jquery-3.2.1.min.js");
-			htmleditor.getDoc().setValue("");
-			jseditor.getDoc().setValue("");
-			csseditor.getDoc().setValue("");
-			$('#result_box').empty();
-    	}
+		clearContents();
 	});
 
 	/* ************************ Tabs Handler ************************ */
@@ -238,21 +231,20 @@ $(document).ready(function(){
 	shortcut.add("CTRL+O",function() {
 		$("#file-upload").trigger("click");
 	});
-
 	shortcut.add("F11",function() {
-		// htmleditor.on('focus', function() {
-  //   		$(".CodeMirror:nth-child(1)").addClass("fullscreen");
-  //   		return;
-  //   	});
-		// jseditor.on('focus', function() {
-  //   		$(".CodeMirror:nth-child(2)").addClass("fullscreen");
-  //   		return;
-  //   	});
-		// csseditor.on('focus', function() {
-  //   		$(".CodeMirror:nth-child(3)").addClass("fullscreen");
-  //   		return;
-  //   	});
-  //   	$("#result_box").addClass("fullscreen");
+		var get_focus = getFocus();
+		if(get_focus === 1){
+			$(".CodeMirror:nth-child(1)").addClass("fullscreen");
+			refresh();
+		}else if(get_focus === 2){
+			$(".CodeMirror:nth-child(2)").addClass("fullscreen");	
+			refresh();
+		}else if(get_focus === 3){
+			$(".CodeMirror:nth-child(3)").addClass("fullscreen");	
+			refresh();
+		}else{
+			$("#result_box").addClass("fullscreen");
+		}
 	});
 
 
@@ -261,6 +253,7 @@ $(document).ready(function(){
 		$("#external_resource, #themes").hide();
 		$("#savefile").removeClass("show-save-dialog");
 		$("#result_box, .CodeMirror:nth-child(1), .CodeMirror:nth-child(2), .CodeMirror:nth-child(3)").removeClass("fullscreen");
+		$("header h2").focus();
 	}
 
 	/* Refresh windows */
@@ -268,6 +261,20 @@ $(document).ready(function(){
 		htmleditor.refresh();
 		jseditor.refresh();
 		csseditor.refresh();
+	}
+
+	function getFocus(){
+		if($(".CodeMirror:nth-child(1)").hasClass("CodeMirror-focused")){
+			return 1;
+		}
+		else if($(".CodeMirror:nth-child(2)").hasClass("CodeMirror-focused")){
+			return 2;
+		}
+		else if($(".CodeMirror:nth-child(3)").hasClass("CodeMirror-focused")){
+			return 3;
+		}else{
+			return 4;
+		}
 	}
 
 	function setFocus(id){
@@ -397,11 +404,13 @@ function setResource(resources){
 
 function saveFile(htmleditor, jseditor, csseditor){
 	if($("#file-name").val()){
+		var filename = $("#file-name").val();
 		$("#savefile").removeClass("show-save-dialog");	
 
-		var newfile = $("#file-name").val() + "\n```\n" + getResource("plain") + "\n```\n" + htmleditor.getValue() + "\n```\n" + jseditor.getValue() + "\n```\n" + csseditor.getValue() + "\n";
+		$("header h2").text(filename);
+		var newfile = filename + "\n```\n" + getResource("plain") + "\n```\n" + htmleditor.getValue() + "\n```\n" + jseditor.getValue() + "\n```\n" + csseditor.getValue() + "\n";
 		var blob = new Blob([newfile], {type: "text/plain;charset=utf-8"});
-		saveAs(blob, $("#file-name").val() + ".txt");
+		saveAs(blob, filename + ".txt");
 	}
 	else{
 		$("#file-name").addClass("input-alert");	
@@ -522,6 +531,18 @@ function changeView(){
 		});
 	}
 	return id;
+}
+
+function clearContents(){
+	var result = confirm("Are you sure you wish to clear everything? Any unsaved changes will be lost.");
+	if (result) {
+		setResource("https://code.jquery.com/jquery-3.2.1.min.js");
+		htmleditor.getDoc().setValue("");
+		jseditor.getDoc().setValue("");
+		csseditor.getDoc().setValue("");
+		$('#result_box').empty();
+		$("header h2").text("JS Playground");
+	}
 }
 
 function switchtab(element, show){
