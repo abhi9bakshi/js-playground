@@ -53,7 +53,11 @@ https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 
 </table>
 ```
-
+$(function(){
+  var margin = $(window).height()/2 - 50;
+  $("h1").css("margin-top", margin + "px");
+  $("h1").css("margin-bottom", margin + "px");
+});
 ```
 body{
   background-color: #f7df1d;
@@ -62,10 +66,13 @@ body{
 }
 
 h1{
-  margin: 6rem auto;
+  width: 100%;
+  min-height: 100px;
   font-size: 3rem;
   text-align: center;
   font-weight: 100;
+  margin: 0;
+  padding: 0;
 }
 
 table{

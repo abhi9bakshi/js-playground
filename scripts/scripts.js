@@ -255,7 +255,6 @@ $(document).ready(function(){
 		$("#external_resource, #themes").hide();
 		$("#savefile").removeClass("show-save-dialog");
 		$("#result_box, .CodeMirror:nth-child(1), .CodeMirror:nth-child(2), .CodeMirror:nth-child(3)").removeClass("fullscreen");
-		$("header h2").focus();
 	}
 
 	/* Refresh windows */
@@ -345,7 +344,6 @@ function loadFileAJAX(file, htmleditor, jseditor, csseditor){
 				else{
 					result[i] = result[i].slice(1, -1);
 				}
-				console.log(i + " " + result[i]);
 			}
 
 				$("header h2").text(result[0]);
@@ -505,7 +503,6 @@ function changeView(){
 		$("#tabs ul li").each(function(index){
 			if($(this).hasClass("active-li")){
 				id = index+1;
-				console.log("innerfocus: " + id);
 			}
 		});
 	}
