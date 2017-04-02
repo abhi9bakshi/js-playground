@@ -64,7 +64,7 @@ $(document).ready(function(){
 	if(window.location.href.split("#")[1]){
 		loadFileAJAX(window.location.href.split("#")[1], htmleditor, jseditor, csseditor);
 	}else{
-		loadFileAJAX("projects/JS Playground", htmleditor, jseditor, csseditor);
+		loadFileAJAX("projects/Code Playground", htmleditor, jseditor, csseditor);
 	}
 	
 	/* Setup the Environment */
@@ -540,7 +540,7 @@ function clearContents(htmleditor, jseditor, csseditor){
 		jseditor.getDoc().setValue("");
 		csseditor.getDoc().setValue("");
 		$('#result_box').empty();
-		$("header h2").text("JS Playground");
+		$("header h2").text("Code Playground");
 	}
 }
 

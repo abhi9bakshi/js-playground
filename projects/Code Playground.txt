@@ -1,11 +1,11 @@
-﻿JS Playground
+﻿Code Playground
 ```
 https://code.jquery.com/jquery-3.2.1.min.js
 https://fonts.googleapis.com/css?family=Quicksand
 https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 ```
 <h1>
-  JS Playground
+  Code Playground
 </h1>
 
 <table>
