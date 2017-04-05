@@ -44,19 +44,23 @@ table {
 
 
 /***************** Global Styles *****************/
-header, footer, #tabs, #themes, #external_resource{
+header, footer, .tabs, #themes, #views, #external_resource{
     font-family: 'Raleway', sans-serif;
+}
+
+*{
+	box-sizing: border-box;
 }
 
 .fullscreen{
 	position: absolute!important;
 	top: 0!important;
 	left: 0!important;
-	width: calc(100% - 2px)!important;
-	height: calc(100% - 2px)!important;
-	z-index: 1000!important;
+	width: 100%!important;
+	height: 100%!important;
+	z-index: 100!important;
 
-	border: 1px solid #555;
+	border: none;
 }
 
 /***************** Header Styles *****************/
@@ -95,6 +99,24 @@ header h2:hover{
 	position: absolute;
 	top: 0;
 	left: 0;
+	width: 2.5rem;
+	height: 2.5rem;
+	background-color: white;
+	color: black;
+
+	-webkit-transition: background-color 1s ease, color 1s ease;
+	-moz-transition: background-color 1s ease, color 1s ease;
+	-o-transition: background-color 1s ease, color 1s ease;
+	transition: background-color 1s ease, color 1s ease;
+}
+
+#logo p{
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 1.2rem;
+	position: absolute;
+	bottom: 1px;
+	right: 3px;
 }
 
 #logo img{
@@ -109,23 +131,19 @@ header ul{
 }
 
 header ul li{
-	display: inline;
+	display: inline-block;
+	height: 2.5rem;
+	width: 2.5rem;
+	text-align: center;
 }
 
 header ul li i{
 	color: #eee;
 	text-decoration: none;
 	font-size: 1.5rem;
-	padding: 0.7rem 1rem;
-	margin-left: -0.3rem;
-
-/*	-webkit-transition: background-color 500ms ease;
-	-moz-transition: background-color 500ms ease;
-	-o-transition: background-color 500ms ease;
-	transition: background-color 500ms ease;*/
 }
 
-header ul li i:hover{
+header ul li:hover{
 	background-color: #222;
 	cursor: pointer;
 }
@@ -154,6 +172,34 @@ header ul li i:hover{
 	background-color: #333333;
 }
 
+#views{
+	display: none;
+	position: absolute;
+	top: 2.5rem;
+	right: 0rem;
+	z-index: 2;
+	font-size: 1rem;
+	background-color: #222;
+	color: #eee;
+}
+
+#views i{
+	margin-right: 10px;
+}
+
+.rotate-90{
+	transform : rotate(90deg);
+}
+
+#views li{
+	padding: 1rem;
+}
+
+#views li:hover{
+	cursor: pointer;
+	background-color: #333333;
+}
+
 #external_resource{
 	display: none;
 	position: absolute;
@@ -171,17 +217,18 @@ header ul li i:hover{
 	line-height: 2.5rem;
 	text-align: center;
 	background-color: #222;
+	float: left;
 }
 
 #external_resource_input input{
 	background-color: #222;
-	width: 11.5rem;
+	width: 12.5rem;
 	height: 2.5rem;
 	border: none;
 	color: #eee;
 	padding: 0 0.5rem;
-	margin-right: -0.255rem;
 	vertical-align: middle;
+	float: left;
 	-webkit-transition: background-color 0.5s ease;
 	-moz-transition: background-color 0.5s ease;
 	-o-transition: background-color 0.5s ease;
@@ -189,8 +236,8 @@ header ul li i:hover{
 }
 
 #external_resource_input img{
-	width: 1.4rem;
-	height: 1.4rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	background-color: #00680c;
 	padding: 0.55rem;
 	vertical-align: middle;
@@ -229,7 +276,7 @@ header ul li i:hover{
 
 .external_resource_list input{
 	background-color: #222;
-	width: 11.5rem;
+	width: 12.5rem;
 	height: 2.5rem;
 	border: none;
 	color: #eee;
@@ -240,8 +287,8 @@ header ul li i:hover{
 .external_resource_list div{
 	display: inline-block;
 	background-color: #00680c;
-	width: 1.4rem;
-	height: 1.4rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	padding: 0.55rem;
 	vertical-align: middle;
 	-webkit-transition: background-color 0.5s ease;
@@ -308,155 +355,52 @@ header ul li i:hover{
 	/*padding: 0.4rem;*/
 }
 
-/* View: Grid */
-.view-grid{
-	font-size: 1rem;
-	font-family: 'Inconsolata', monospace;
-}
-
-.grid-html{
-	position: absolute;
-	top: 0;
-	width: calc(50% - 1px);
-	height: calc(50% - 1px);
-}
-
-.grid-html:after{
-	content: "HTML";
-	color: white;
-	z-index: 2;
-	position: absolute;
-	top: 0;
-	right: 0;
-	border-left: 1px solid #555;
-	border-bottom: 1px solid #555;
-	padding: 0.3rem 1.3rem 0.3rem 0.3rem;
-	color: #666;
-}
-
-.grid-js{
-	position: absolute;
-	top: 50%;
-	width: calc(50% - 1px);
-	height: 50%;
-}
-
-.grid-js:after{
-	content: "JS";
-	z-index: 2;
-	position: absolute;
-	top: 0;
-	right: 0;
-	border-left: 1px solid #555;
-	border-bottom: 1px solid #555;
-	padding: 0.3rem 1.3rem 0.3rem 0.3rem;
-	color: #666;
-}
-
-.grid-css{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 50%;
-	height: 50%;
-}
-
-.grid-css:after{
-	content: "CSS";
-	z-index: 2;
-	position: absolute;
-	top: 0;
-	right: 0;
-	border-left: 1px solid #555;
-	border-bottom: 1px solid #555;
-	padding: 0.3rem 1.3rem 0.3rem 0.3rem;
-	color: #666;
-}
-
-.grid-result-box{
-	position: absolute;
-	top: 0;
-	left: 50%;
-	width: 50%;
-	height: calc(50% - 1px);
-	background-color: white;
-	/*padding: 0.4rem;*/
-}
-
-/* View: Two Pane */
-.view-two-pane{
-	font-size: 1rem;
-	font-family: 'Inconsolata', monospace;
-}
-
-.two-pane-html{
-	position: absolute;
-	top: 2.5rem;
-	left: 0;
-	width: 50%;
-	height: calc(100% - 2.5rem);
-}
-
-.two-pane-js{
-	position: absolute;
-	top: 2.5rem;
-	left: 0;
-	width: 50%;
-	height: calc(100% - 2.5rem);
-}
-
-.two-pane-css{
-	position: absolute;
-	top: 2.5rem;
-	left: 0;
-	width: 50%;
-	height: calc(100% - 2.5rem);
-}
-
-.two-pane-result-box{
-	position: absolute;
-	top: 0;
-	left: 50%;
-	width: calc(50% - 1px);
-	height: 100%;
-	border-left: 1px solid #555;
-	background-color: white;
-	/*padding: 0.4rem;*/
-}
 
 /* Tabs */
-#tabs{
+.tabs{
 	position: absolute;
-	top: 0rem;
+	top: 0;
 	left: 0;
 	width: 50%;
 	height: 2.5rem;
 }
 
-#tabs li{
+.tabs-top-and-bottom, .tabs-tabbed{
+	width: 100%;
+}
+
+#tabs-3 li{
+	width: 33.3%;
 	margin: 0.05rem -0.1rem 0 ;
+}
+
+#tabs-4 li{
+	margin: 0.05rem -0.11rem 0 ;
+	width: 25%;
+}
+
+.tabs li{
 	display: inline-block;
 	text-align: center;
-	width: 33.3%;
 	line-height: 2.5rem;
 }
 
 /* Eclipse tabs*/
-#tabs.eclipse{
+.tabs.eclipse{
 	color: black;
-	background-color: #d1e0ef;
+	background-color: #D0DFEF;
 }
 
-#tabs.eclipse li{
-	background-color: #d1e0ef;
+.tabs.eclipse li{
+	background-color: #D0DFEF;
 }
 
-#tabs.eclipse li:hover{
+.tabs.eclipse li:hover{
 	cursor: pointer;
 	background-color: #d6e5f4;
 }
 
-#tabs.eclipse li.active-li{
+.tabs.eclipse li.active-li{
 	background-color: #fff;
 	border-top: solid 1px #555;
 	border-top-left-radius: 5px;
@@ -465,21 +409,21 @@ header ul li i:hover{
 }
 
 /* Material Tabs */
-#tabs.material{
+.tabs.material{
 	color: white;
 	background-color: #344349;
 }
 
-#tabs.material li{
+.tabs.material li{
 	background-color: #344349;
 }
 
-#tabs.material li:hover{
+.tabs.material li:hover{
 	cursor: pointer;
 	background-color: #374652;
 }
 
-#tabs.material li.active-li{
+.tabs.material li.active-li{
 	background-color: #263238;
 	border-top: solid 0.3rem #348369;
 	border-top-left-radius: 0px;
@@ -487,28 +431,32 @@ header ul li i:hover{
 	line-height: 2.2rem;
 }
 /* Monokai Tabs*/
-#tabs.monokai{
-	color: #9f9b96;
-	background-color: #464643;
+.tabs.monokai{
+	color: white;
+	background-color: #3A3B38;
+	background-image: linear-gradient(#4E4F4D, #3A3B38);
 }
 
-#tabs.monokai li{
+.tabs.monokai li{
 	background-color: #464643;
+	background-color: #3A3B38;
+	background-image: linear-gradient(#4E4F4D, #3A3B38);
 }
 
-#tabs.monokai li:hover{
+.tabs.monokai li:hover{
 	cursor: pointer;
 	background-color: #464643;
 }
 
-#tabs.monokai li.active-li{
-	background-color: 	#272822;
+.tabs.monokai li.active-li{
+	background-color: #272822;
+	background-image: linear-gradient(#363731, #272822);
 	color: white;
 	border-top: solid 1px #555;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	line-height: 2.5rem;
-	transform: perspective(200px) rotateX(30deg);
+/*	transform: perspective(200px) rotateX(30deg);*/
 }
 
 /***************** Footer Styles *****************/
@@ -519,6 +467,7 @@ footer{
     bottom: 0;
     height: 3rem;
     width: 100%;
+	background-color: #111;
 }
 
 footer h2{
@@ -528,7 +477,6 @@ footer h2{
 	font-size: 0.8rem;
 	line-height: 3rem;
 	color: #eee;
-	background-color: rgba(0,0,0,0);
 }
 
 
@@ -611,6 +559,7 @@ footer ul#links li a:hover{
 	background-color: #333;
 	color: #eee;
 	border: none;
+	height: 1.6rem;
 
 	-webkit-transition: background-color 1s ease;
 	-moz-transition: background-color 1s ease;
@@ -631,13 +580,18 @@ footer ul#links li a:hover{
 	height: 3rem;
 	background-color: #222;
 
-	-webkit-transition: bottom 1s ease;
-	-moz-transition: bottom 1s ease;
-	-o-transition: bottom 1s ease;
-	transition: bottom 1s ease;
+	-webkit-transition: bottom .5s ease-in;
+	-moz-transition: bottom .5s ease-in;
+	-o-transition: bottom .5s ease-in;
+	transition: bottom .5s ease-in;
 }
 
 #savefile.show-save-dialog{
+	-webkit-transition: bottom .5s ease-out;
+	-moz-transition: bottom .5s ease-out;
+	-o-transition: bottom .5s ease-out;
+	transition: bottom .5s ease-out;
+
 	bottom: 3rem;
 }
 
