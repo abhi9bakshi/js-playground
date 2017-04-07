@@ -21,12 +21,12 @@ $(document).ready(function(){
 	var htmlbox = document.getElementById("html_box");
 	var htmleditor = CodeMirror(function(elt) {
 	  htmlbox.parentNode.replaceChild(elt, htmlbox);
-	}, 
+	},
 	{
 		// value: htmlDecode(htmlbox.innerHTML),
 		lineNumbers: true,
 		mode: 'text/html',
-		extraKeys: {"Ctrl-Space": "autocomplete"}, 
+		extraKeys: {"Ctrl-Space": "autocomplete"},
 		theme: "material",
         autoCloseTags: true,
         matchTags: true
@@ -37,7 +37,7 @@ $(document).ready(function(){
 	var jsbox = document.getElementById("js_box");
 	var jseditor = CodeMirror(function(elt) {
 	  jsbox.parentNode.replaceChild(elt, jsbox);
-	}, 
+	},
 	{
 		// value: jsbox.innerHTML,
 		lineNumbers: true,
@@ -53,18 +53,18 @@ $(document).ready(function(){
 	var cssbox = document.getElementById("css_box");
 	var csseditor = CodeMirror(function(elt) {
 	  cssbox.parentNode.replaceChild(elt, cssbox);
-	}, 
+	},
 	{
 		// value: cssbox.innerHTML,
 		lineNumbers: true,
 		mode:  "css",
-		extraKeys: {"Ctrl-Space": "autocomplete"}, 
+		extraKeys: {"Ctrl-Space": "autocomplete"},
 		theme: "material",
 		autoCloseBrackets: true,
 		matchBrackets: true
 	});
 
-	
+
 	/* Add Pesudo HTMl CSS and JS classes to identify codemirror editors */
 	$(".CodeMirror:nth-child(1)").addClass("html-editor");
 	$(".CodeMirror:nth-child(2)").addClass("js-editor");
@@ -101,12 +101,12 @@ $(document).ready(function(){
 	if (Modernizr.mq('(max-width: 840px)')) {
 		$("header h2, footer h2, footer #links, #nav-right li:nth-child(3)").hide();
 		VIEW = "tabbed";
-		changeView(VIEW, 1);	
+		changeView(VIEW, 1);
 		changeTheme(THEME, htmleditor, jseditor, csseditor);
 		refresh();
 		setFocus();
     }
-	
+
 	/* Show playground */
 	$("#playground").show();
 
@@ -121,7 +121,7 @@ $(document).ready(function(){
 		if($("#external_resource").is(":hidden")){
 			reset();
 			$("#external_resource").show();
-			$("#external_resource_input input").focus();	
+			$("#external_resource_input input").focus();
 		}else{
 			$("#external_resource").hide();
 		}
@@ -130,8 +130,8 @@ $(document).ready(function(){
 	/* Add External Resource */
 	$("#external_resource_input img").on('click', function(){
 		addExternalUri();
-	});	
-	
+	});
+
 	/* Remove External Resource */
 	$("#external_resource").on('click','.external_resource_list div', function(){
 		removeExternalUri($(this));
@@ -141,7 +141,7 @@ $(document).ready(function(){
 	$("#theme_button").on("click", function(){
 		if($("#themes").is(":hidden")){
 			reset();
-			$("#themes").show();			
+			$("#themes").show();
 		}else{
 			$("#themes").hide();
 		}
@@ -160,7 +160,7 @@ $(document).ready(function(){
 	$("#view_button").on("click", function(){
 		if($("#views").is(":hidden")){
 			reset();
-			$("#views").show();			
+			$("#views").show();
 		}else{
 			$("#views").hide();
 		}
@@ -189,7 +189,7 @@ $(document).ready(function(){
 	/* ************************ Tabs Handler ************************ */
 	/* Handle Tabs Click */
 	$(".tabs ul li").on("click", function(){
-		ACTIVE = $(this).attr("id");			
+		ACTIVE = $(this).attr("id");
 		switchTab(ACTIVE, VIEW);
 		refresh();
 		setFocus();
@@ -206,7 +206,7 @@ $(document).ready(function(){
     	ACTIVE = "css";
     });
 
-	
+
 	/* ************************ Footer Buttons Handler ************************ */
 	/* Load File */
 	$('input[type=file]').on('change', function(){
@@ -217,10 +217,10 @@ $(document).ready(function(){
 	/* Show Save Dialog */
 	$("#file-download").on('click', function(){
 		if($("#savefile").hasClass("show-save-dialog")){
-			$("#savefile").removeClass("show-save-dialog");	
+			$("#savefile").removeClass("show-save-dialog");
 		}else{
 			reset();
-			$("#savefile").addClass("show-save-dialog");	
+			$("#savefile").addClass("show-save-dialog");
 			$("#savefile input").focus();
 		}
 	});
@@ -232,7 +232,7 @@ $(document).ready(function(){
 
 	/* Clear red background on file name input box on input */
 	$("#file-name, #external_resource_input input").on('input', function(){
-		$(this).removeClass("input-alert");	
+		$(this).removeClass("input-alert");
 	});
 
 
@@ -260,10 +260,10 @@ $(document).ready(function(){
 			$(".html-editor").addClass("fullscreen");
 			refresh();
 		}else if(focus === "js"){
-			$(".js-editor").addClass("fullscreen");	
+			$(".js-editor").addClass("fullscreen");
 			refresh();
 		}else if(focus === "css"){
-			$(".css-editor").addClass("fullscreen");	
+			$(".css-editor").addClass("fullscreen");
 			refresh();
 		}else{
 			$("#result_box").addClass("fullscreen");
@@ -330,10 +330,10 @@ $(document).ready(function(){
 	// SAVE
 	shortcut.add("CTRL+S",function() {
 		if($("#savefile").hasClass("show-save-dialog")){
-			$("#savefile").removeClass("show-save-dialog");	
+			$("#savefile").removeClass("show-save-dialog");
 		}else{
 			reset();
-			$("#savefile").addClass("show-save-dialog");	
+			$("#savefile").addClass("show-save-dialog");
 			$("#savefile input").focus();
 		}
 	});
@@ -369,7 +369,7 @@ $(document).ready(function(){
           	if (Modernizr.mq('(max-width: 840px)')) {
 	    		viewbuffer = VIEW;
 	    		VIEW = "tabbed";
-	    		changeView(VIEW, 1);	
+	    		changeView(VIEW, 1);
 				changeTheme(THEME, htmleditor, jseditor, csseditor);
 				refresh();
 				setFocus();
@@ -379,9 +379,9 @@ $(document).ready(function(){
 	    		  	setupEnv(htmleditor, jseditor, csseditor);
 	    		}
 	    	}
-	    }               
+	    }
 	}
-	
+
 
 /* ************************ Helper Functions ************************ */
 	/* Reset Dropdowns */
@@ -443,12 +443,12 @@ function setLogoColor(){
 
 /* Setup Environment */
 function setupEnv(htmleditor, jseditor, csseditor){
-	// This function is defined outside 'document.ready' since it is called upon 
-	// loading external file through asynchronous request. Although refresh and 
+	// This function is defined outside 'document.ready' since it is called upon
+	// loading external file through asynchronous request. Although refresh and
 	// setfocus are defined again here, it is completely intentional.
-	changeView(VIEW);	
+	changeView(VIEW);
 	changeTheme(THEME, htmleditor, jseditor, csseditor);
-	
+
 	// Refresh
 	htmleditor.refresh();
 	jseditor.refresh();
@@ -489,7 +489,7 @@ function changeView(value, allowlowres){
 		$(".js-editor").addClass("grid-js");
 		$(".css-editor").addClass("grid-css");
 		$("#result_box").addClass("grid-result-box");
-		
+
 		$("#view_button i").addClass("fa-th-large");
 
 		// Switch Tab
@@ -553,8 +553,8 @@ function addExternalUri(){
 		// if($("#external_resource_input input").val().endsWith(".js") || $("#external_resource_input input").val().endsWith(".css")){
 			input_uri = $("#external_resource_input input").val();
 
-			$("#external_resource_input").after($("<div class='external_resource_list'>" + 
-			"<input type='text' name='External Resource' value='" + input_uri + "'>" + 
+			$("#external_resource_input").after($("<div class='external_resource_list'>" +
+			"<input type='text' name='External Resource' value='" + input_uri + "'>" +
 			"<div><img src='media/icons/plus.png'></div>" +
 			"</div>"));
 			$(".external_resource_list_translate").removeClass("external_resource_list_translate");
@@ -565,7 +565,7 @@ function addExternalUri(){
 			setTimeout(function(){
 				this_item.find("img").addClass("external_resource_list_img_added");
 				this_item.children("div").addClass("external_resource_list_div_added");
-				list_items.addClass("external_resource_list_translate"); 
+				list_items.addClass("external_resource_list_translate");
 			}, 50);
 			$("#external_resource_input input").val("");
 			$("#external_resource_input input").focus();
@@ -588,7 +588,7 @@ function loadFileAJAX(file, htmleditor, jseditor, csseditor){
         url: "projects/" + file + ".txt",
         async: true,
         success: function (data){
-    		var result = data.replace(/\r\n/g, "\n").split("```"); 
+    		var result = data.replace(/\r\n/g, "\n").split("```");
 
 			if(result.length < 2){
 				alert("Invalid File");
@@ -630,8 +630,8 @@ function loadFile(htmleditor, jseditor, csseditor){
 	    reader.readAsText(file, "UTF-8");
 	    reader.onload = function (evt) {
 
-			var result = evt.target.result.replace(/\r\n/g, "\n").split("```"); 
-			
+			var result = evt.target.result.replace(/\r\n/g, "\n").split("```");
+
 			if(result.length < 2){
 				alert("Invalid File");
 				return;
@@ -667,12 +667,12 @@ function loadFile(htmleditor, jseditor, csseditor){
 
 function setResource(resources){
 	$('#external_resource_input').nextAll('div').remove();
-	
-	if(resources !== ""){	
-		var resource = resources.split("\n"); 
+
+	if(resources !== ""){
+		var resource = resources.split("\n");
 		for(i=0; i<resource.length; i++){
-			$("#external_resource_input").after($("<div class='external_resource_list external_resource_list_translate'>" + 
-			"<input type='text' name='External Resource' value='" + resource[i] + "'>" + 
+			$("#external_resource_input").after($("<div class='external_resource_list external_resource_list_translate'>" +
+			"<input type='text' name='External Resource' value='" + resource[i] + "'>" +
 			"<div class='external_resource_list_div_added'><img class='external_resource_list_img_added' src='media/icons/plus.png'></div>" +
 			"</div>"));
 			// console.log(i + " " + resource[i]);
@@ -683,16 +683,16 @@ function setResource(resources){
 function saveFile(htmleditor, jseditor, csseditor){
 	if($("#file-name").val()){
 		var filename = $("#file-name").val();
-		$("#savefile").removeClass("show-save-dialog");	
+		$("#savefile").removeClass("show-save-dialog");
 
 		$("header h2").text(filename);
-		//var newfile = filename + "\n```\n" + getResource("plain") + "\n```\n" + htmleditor.getValue() + "\n```\n" + jseditor.getValue() + "\n```\n" + csseditor.getValue() + "\n```\n" + ACTIVE + "\n```\n" + THEME +  "\n```\n" + VIEW + "\n";
-		var newfile = { "filename":filename, "resources":getResource("plain") };
+		var newfile = filename + "\n```\n" + getResource("plain") + "\n```\n" + htmleditor.getValue() + "\n```\n" + jseditor.getValue() + "\n```\n" + csseditor.getValue() + "\n```\n" + ACTIVE + "\n```\n" + THEME +  "\n```\n" + VIEW + "\n";
+		//var newfile = { "filename":filename, "resources":getResource("plain") };
 		var blob = new Blob([newfile], {type: "text/plain"});
 		saveAs(blob, filename + ".txt");
 	}
 	else{
-		$("#file-name").addClass("input-alert");	
+		$("#file-name").addClass("input-alert");
 	}
 }
 
@@ -703,7 +703,7 @@ function htmlDecode(input){
 }
 
 function execute(htmleditor,jseditor,csseditor){
-	
+
 	var resource = getResource("with_tags");
 
 	var iframe = document.createElement('iframe');
@@ -711,23 +711,23 @@ function execute(htmleditor,jseditor,csseditor){
 
 	//console.log("css: " + csseditor.getValue());
 
-	content = 
-'<!doctype html>' + 
+	content =
+'<!doctype html>' +
 '<html lang="en">' +
-	'<head>' + 
-		'<meta charset = "utf-8">' + 
-		resource + 
+	'<head>' +
+		'<meta charset = "utf-8">' +
+		resource +
 	'</head>' +
 	'<body>' +
 		htmleditor.getValue() +
 	'</body>' +
 
-	'<style>' + 
-		csseditor.getValue() + 
+	'<style>' +
+		csseditor.getValue() +
 	'</style>' +
-	'<scr' + 'ipt>' + 
-		jseditor.getValue() + 
-	'</scr' + 'ipt>' + 
+	'<scr' + 'ipt>' +
+		jseditor.getValue() +
+	'</scr' + 'ipt>' +
 '</html>'
 
 	iframe.srcdoc = content;
@@ -739,7 +739,7 @@ function execute(htmleditor,jseditor,csseditor){
 
 function getResource(type){
 	var resources = [];
-	
+
 	$($(".external_resource_list input").get().reverse()).each(function(index){
 		resources.push($(this).val());
 	});
