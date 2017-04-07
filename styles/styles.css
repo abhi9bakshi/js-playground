@@ -8,8 +8,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -19,7 +19,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -371,18 +371,21 @@ header ul li:hover{
 
 #tabs-3 li{
 	width: 33.3%;
-	margin: 0.05rem -0.1rem 0 ;
 }
 
 #tabs-4 li{
-	margin: 0.05rem -0.11rem 0 ;
 	width: 25%;
 }
 
 .tabs li{
+	float: left;
 	display: inline-block;
 	text-align: center;
 	line-height: 2.5rem;
+}
+
+.tabs li::before, .tabs li::after{
+	clear: both;
 }
 
 /* Eclipse tabs*/
@@ -402,10 +405,11 @@ header ul li:hover{
 
 .tabs.eclipse li.active-li{
 	background-color: #fff;
+	margin-top: 0.05rem;
 	border-top: solid 1px #555;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-	line-height: 2.5rem;
+	line-height: calc(2.45rem - 1px);
 }
 
 /* Material Tabs */
@@ -428,7 +432,7 @@ header ul li:hover{
 	border-top: solid 0.3rem #348369;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
-	line-height: 2.2rem;
+	line-height: 2.3rem;
 }
 /* Monokai Tabs*/
 .tabs.monokai{
@@ -450,13 +454,13 @@ header ul li:hover{
 
 .tabs.monokai li.active-li{
 	background-color: #272822;
+	margin-top: 0.05rem;
 	background-image: linear-gradient(#363731, #272822);
 	color: white;
 	border-top: solid 1px #555;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-	line-height: 2.5rem;
-/*	transform: perspective(200px) rotateX(30deg);*/
+	line-height: calc(2.45rem - 1px);
 }
 
 /***************** Footer Styles *****************/
@@ -483,7 +487,7 @@ footer h2{
 footer ul#load{
 	position: absolute;
 	top: 0;
-	left: calc(50% - 4rem);	
+	left: calc(50% - 4rem);
 	width: 8rem;
 	text-align: center;
 	background-color: #111;

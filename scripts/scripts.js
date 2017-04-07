@@ -686,8 +686,9 @@ function saveFile(htmleditor, jseditor, csseditor){
 		$("#savefile").removeClass("show-save-dialog");	
 
 		$("header h2").text(filename);
-		var newfile = filename + "\n```\n" + getResource("plain") + "\n```\n" + htmleditor.getValue() + "\n```\n" + jseditor.getValue() + "\n```\n" + csseditor.getValue() + "\n```\n" + ACTIVE + "\n```\n" + THEME +  "\n```\n" + VIEW + "\n";
-		var blob = new Blob([newfile], {type: "text/plain;charset=utf-8"});
+		//var newfile = filename + "\n```\n" + getResource("plain") + "\n```\n" + htmleditor.getValue() + "\n```\n" + jseditor.getValue() + "\n```\n" + csseditor.getValue() + "\n```\n" + ACTIVE + "\n```\n" + THEME +  "\n```\n" + VIEW + "\n";
+		var newfile = { "filename":filename, "resources":getResource("plain") };
+		var blob = new Blob([newfile], {type: "text/plain"});
 		saveAs(blob, filename + ".txt");
 	}
 	else{
