@@ -1,3 +1,82 @@
+col-border-margin-collapse
+```
+https://fonts.googleapis.com/css?family=Raleway
+https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js
+https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css
+```
+<div id="search">
+  <input type="text" name="search" placeholder="search">
+  <div id="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-sm-6 col-xs-12 project">
+      <div class="content">
+        <div class="background"></div>
+        <h2 class="title">JS Events - An Overview</h2>
+        <p class="type"><i class="fa fa-circle js" aria-hidden="true"></i>JS</p>
+        <p class="timestamp">22 March 2016,<br/> 11:05 PM</p>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-6 col-xs-12 project">
+      <div class="content">
+        <div class="background"></div>
+        <h2 class="title">CSS Grid - A comprehensive introduction</h2>
+        <p class="type"><i class="fa fa-circle css" aria-hidden="true"></i>CSS</p>
+        <p class="timestamp">22 March 2016,<br/> 11:05 PM</p>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-6 col-xs-12 project">
+      <div class="content">
+        <div class="background"></div>
+        <h2 class="title">CSS Grid - A comprehensive introduction with add extracts and rich honey protein to make your hair silky smooth</h2>
+        <p class="type"><i class="fa fa-circle css" aria-hidden="true"></i>CSS</p>
+        <p class="timestamp">22 March 2016,<br/> 11:05 PM</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+```
+$(function(){
+  $(".content").hover(
+    function(){
+      // If type is CSS
+      if($(this).children("p.type").text() === "CSS"){
+        $(this).children(".background").addClass("background-css");
+        $(this).children("p").addClass("css");
+        $(this).find("i").removeClass("css");
+        $(this).addClass("content-border-css");
+      // If type is JS
+      }else if($(this).children("p.type").text() === "JS"){
+        $(this).children(".background").addClass("background-js");
+        $(this).children("p").addClass("js");
+        $(this).find("i").removeClass("js");
+        $(this).addClass("content-border-js");
+      }
+    },
+    function(){
+      // If type is CSS
+      if($(this).children("p.type").text() === "CSS"){
+        $(this).children(".background").removeClass("background-css");
+        $(this).children("p, .title").removeClass("css");
+        $(this).find("i").addClass("css");
+        $(this).removeClass("content-border-css");
+      // If type is JS
+      }else if($(this).children("p.type").text() === "JS"){
+        $(this).children(".background").removeClass("background-js");
+        $(this).children("p, .title").removeClass("css");
+        $(this).find("i").addClass("js");
+        $(this).removeClass("content-border-js");
+      }
+    });
+});
+
+```
 /******************* CSS Reset *******************/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -49,6 +128,7 @@ table {
 /**************** Styling Rules *****************/
 body{
   background-color: #eee;
+  color: black;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -200,3 +280,10 @@ body{
   padding: 1rem;
   text-align: right;
 }
+
+```
+css
+```
+material
+```
+side-by-side
